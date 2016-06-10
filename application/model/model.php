@@ -69,6 +69,46 @@ class Model {
         $query->execute();
     }
 
+   
+        // MESAS
+    
+    public function getMesas() {
+
+        $sql = "SELECT * FROM mesas";
+        $query = $this->db->prepare($sql);
+        $query->execute();
+
+        return $query->fetchAll();
+    }
+
+    public function agregarMesas($no_mesa, $no_sillas, $tipo, $contenedor, $columna, $fila) {
+
+        $sql = "INSERT INTO mesas (no_mesa, no_sillas, tipo, contenedor, columna, fila) VALUES (:no_mesa, :no_sillas, :tipo, :contenedor, :columna, :fila)";
+        $query = $this->db->prepare($sql);
+        $parameters = array(':no_mesa' => $no_mesa, ':no_sillas' => $no_sillas, ':tipo' => $tipo, ':contenedor' => $contenedor, ':columna' => $columna, ':fila' => $fila);
+        $query->execute($parameters);
+    }
+
+    public function borrarMesas() {
+        $sql = "DELETE FROM mesas";
+        $query = $this->db->prepare($sql);
+        $query->execute();
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     /**
      * Get a song from database

@@ -22,6 +22,7 @@
     line-height: 60px;
     font-weight: bold;
     font-size: 19px;
+    background:#ffffff;
 }
 
 .sillas_contenedor{
@@ -41,7 +42,7 @@
     position: fixed;
     border-radius: 30%;
     z-index:2;
-    background:#007ae9;
+    background:#248bff;
     margin-top: -10px;
 }
 
@@ -96,7 +97,7 @@ a.invitados:hover{
     padding:15px;
     height: 100px;
     border:1px dashed #9d9d9d;
-    background: #fff url("../img/plus.png") no-repeat center;
+    background: #fff url("../img/plus16.png") no-repeat center;
     cursor: -webkit-grabbing;
 }
 
@@ -109,12 +110,11 @@ a.invitados:hover{
 }
 
 .borrar_tabla {
-    position:absolute;
-    background: #248bff;
-    color: #fff;
+    position: absolute;
+    color: #ef3a32;
     z-index: 10;
-    padding: 5px 8px;
-    cursor:pointer;
+    padding: 0px 6px;
+    cursor: pointer;
 }
 
 .titulo_tabla{
@@ -122,7 +122,7 @@ a.invitados:hover{
     z-index: 10;
     color: #248bff;
     padding: 5px 8px;
-    margin-left: 18px;
+    margin-left: 11px;
     margin-top: -6px;
     cursor: pointer;
 }
@@ -145,7 +145,6 @@ a.invitados:hover{
 }
 
 .asigna_mesas_1{
-    background:#ffffff !important;
     cursor: -webkit-grabbing;
 }
 
@@ -155,12 +154,12 @@ a.invitados:hover{
     position: absolute;
 }
 
-.asigna_mesas_1 .js-remove {
+.asigna_mesas_1 .js-remove{
     transition: opacity .2s;
     display: block;
     opacity: 1;
     cursor: pointer;
-    color: #F96464;
+    color: #ef3a32;
     top: 0px;
     right: -5px;
     position: absolute;

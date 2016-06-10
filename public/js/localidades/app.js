@@ -117,7 +117,7 @@
             if (columnas != '' && filas != '') {
 
                 var tabla = "<div class='tabla_localidad'>" +
-                        "<span class='borrar_tabla'>x</span>" +
+                        "<span class='borrar_tabla'></span>" +
                         "<span class='titulo_tabla'>" + descripcion + "</span>" +
                         "<table class='" + descripcion + "'>";
 

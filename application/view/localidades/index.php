@@ -4,14 +4,14 @@
 <?php
 $i = 0;
 $move = "";
-foreach ($ubicaciones as $ubicacion) {
-    $descripcion = $ubicacion->descripcion;
-    $padre = $ubicacion->padre_descripcion;
-    $columnas = $ubicacion->columnas;
-    $filas = $ubicacion->filas;
-    $mesas = $ubicacion->mesas;
-    $p_columna = $ubicacion->padre_columna;
-    $p_fila = $ubicacion->padre_fila;
+foreach ($ubicaciones as $loop) {
+    $descripcion = $loop->descripcion;
+    $padre = $loop->padre_descripcion;
+    $columnas = $loop->columnas;
+    $filas = $loop->filas;
+    $mesas = $loop->mesas;
+    $p_columna = $loop->padre_columna;
+    $p_fila = $loop->padre_fila;
     ?>
 
         //-------------------<?php echo "objeto_" . $i; ?>------------------------- 
@@ -102,16 +102,16 @@ echo $move;
                         <div id="mapa_localidades" class="row seccion_tabla">
 
                             <?php
-                            foreach ($ubicaciones as $ubicacion) {
+                            foreach ($ubicaciones as $loop) {
 
-                                $titulo = $ubicacion->descripcion;
-                                $padre = $ubicacion->padre_descripcion;
-                                $columnas = $ubicacion->columnas;
-                                $filas = $ubicacion->filas;
-                                $mesas = $ubicacion->mesas;
+                                $titulo = $loop->descripcion;
+                                $padre = $loop->padre_descripcion;
+                                $columnas = $loop->columnas;
+                                $filas = $loop->filas;
+                                $mesas = $loop->mesas;
 
                                 $tabla = '<div class="tabla_localidad">' .
-                                        '<span class="borrar_tabla">x</span>' .
+                                        '<span class="borrar_tabla">✖</span>' .
                                         '<span class="titulo_tabla">' . $titulo . '</span>' .
                                         '<table class="' . $titulo . '">' .
                                         '<tbody>';
