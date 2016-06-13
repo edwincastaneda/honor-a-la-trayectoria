@@ -14,7 +14,7 @@
 .mesa{
     margin:20px;
     position:absolute;
-    border:1px solid black;
+    border:1px solid grey;
     width:calc(100% - 40px);
     height:calc(100% - 40px);
     border-radius: 100%;
@@ -36,24 +36,24 @@
 }
 
 .sillas_contenedor .silla{
-    border:1px solid black;
     width: 20px;
     height: 20px;
     position: fixed;
-    border-radius: 30%;
+    border-radius: 100%;
     z-index:2;
-    background:#248bff;
-    margin-top: -10px;
+    margin-top: -13px;
+    border: 1px solid grey;
 }
 
 /* dentro de silla */
 .sillas_contenedor .invitados{
+    margin-top: -1px !important;
+    margin-left: -1px;
     margin-top:0px;
     cursor: -webkit-grabbing;
-    background:yellow;
     width:20px;
     height: 20px; 
-    border-radius: 30%;
+    border-radius: 100%;
     text-align: center;
     line-height: 20px;
     font-size: 11px;
@@ -62,10 +62,8 @@
 .invitados{
     margin-top:0px;
     cursor: -webkit-grabbing;
-    border:1px solid black;
     width:30px;
-    height: 30px; 
-    background:yellow;
+    height: 30px;
     border-radius:100%;
     text-align: center;
     line-height: 30px;
@@ -112,7 +110,7 @@ a.invitados:hover{
 .borrar_tabla {
     position: absolute;
     color: #ef3a32;
-    z-index: 10;
+    z-index: 30;
     padding: 0px 6px;
     cursor: pointer;
 }
@@ -146,6 +144,7 @@ a.invitados:hover{
 
 .asigna_mesas_1{
     cursor: -webkit-grabbing;
+    text-align: center;
 }
 
 
@@ -164,4 +163,50 @@ a.invitados:hover{
     right: -5px;
     position: absolute;
     font-style: normal;
+}
+
+
+#contenedor_asignacion_manual {
+    border: 1px dashed #9d9d9d;
+    min-height: 80px;
+    padding: 10px;
+}
+
+#contenedor_asignacion_manual a{
+    display: inline-table;
+}
+
+
+.anos_5{
+    background: #ff5245;
+    color:#fff;
+}
+.anos_10{
+    background: #4d51ff;
+    color:#fff;
+}
+.anos_15{
+    background: #50a347;
+    color:#fff;
+}
+.anos_20{
+    background: #ffda3b;
+}
+.anos_25{
+    background: #95a5b0;
+}
+.anos_30{
+    background: #ddb4ca;
+}
+.anos_35{
+    background: #9fe1fa;
+}
+.anos_40{
+    background: #e3d9a6;
+}
+.anos_45{
+    background: #c7c3bb;
+}
+.anos_50{
+    background: #c5ceca;
 }

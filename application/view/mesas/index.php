@@ -1,9 +1,10 @@
 
 <script>
+    
     var arrayMesas = new Array();
 <?php
 $i = 0;
-$move1 = "";
+$move = "";
 foreach ($ubicaciones as $loop) {
     $descripcion = $loop->descripcion;
     $padre = $loop->padre_descripcion;
@@ -11,14 +12,13 @@ foreach ($ubicaciones as $loop) {
     $p_fila = $loop->padre_fila;
 
     if ($p_columna > 0 && $p_fila > 0) {
-        $move1.= '            $(".' . $descripcion . '").parent(".tabla_localidad").'
+        $move.= '            $(".' . $descripcion . '").parent(".tabla_localidad").'
                 . 'detach().appendTo("#' . $padre . '-' . $p_columna . '-' . $p_fila . '");' . "\r\n";
     }
     $i++;
 }
 
 $i = 0;
-$move2 = "";
 foreach ($mesas as $loop) {
     $mesa = $loop->no_mesa;
     $sillas = $loop->no_sillas;
@@ -28,7 +28,7 @@ foreach ($mesas as $loop) {
     $fila = $loop->fila;
     ?>
 
-        //-------------------<?php echo "objeto_" . $i; ?>------------------------- 
+        //-------------------<?php echo "objeto_" . $i; ?>-------------------------
         var objeto_<?php echo $i; ?> = {};
         objeto_<?php echo $i; ?>["mesa"] = "<?php echo $mesa; ?>";
         objeto_<?php echo $i; ?>["sillas"] = "<?php echo $sillas; ?>";
@@ -41,20 +41,15 @@ foreach ($mesas as $loop) {
 
         //--------------MOVIMIENTO DE OBJETOS-----------------
     <?php
-    if ($p_columna > 0 && $p_fila > 0) {
-        $move2.= '            $("#' . $mesa . '-' . $sillas . '-' . $tipo . '").'
-                . 'detach().appendTo("#' . $contenedor . '-' . $columna . '-' . $fila . '");' . "\r\n";
-    }
     $i++;
 }
 ?>
     jQuery(document).ready(function ($) {
-
+        $('#avisos_modal').modal('hide');
+    
 <?php
-echo $move1;
-echo $move2;
+echo $move;
 ?>
-        console.log(arrayMesas);
     });
 
 </script>
@@ -62,13 +57,28 @@ echo $move2;
 ?>
 <div id="wrapper">
 
+        <!-- Modal-->
+    <div class="modal fade in" id="avisos_modal" tabindex="-1" data-show role="dialog" data-backdrop="static" data-keyboard="false" >
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="avisos_modal_titulo"></h4>
+                </div>
+                <div class="modal-body" id="avisos_modal_mensaje"></div>
+            </div>
+        </div>
+    </div>
+
+        
+        
     <!-- Sidebar -->
     <div id="sidebar-wrapper">
 
         <form style="padding:10px">
             <div class="form-group">
                 <label for="no_sillas">Numero de sillas*</label>
-                <input type="number" min="1" max="12" class="form-control" id="no_sillas"value="8" required="required">
+                <input type="number" min="1" max="12" class="form-control" id="no_sillas"value="10" required="required">
             </div>
             <div class="form-group">
                 <label for="no_mesa">Identificador de mesa*</label>
@@ -80,14 +90,16 @@ echo $move2;
                 </label>
             </div>
         </form>
-
         <div id="generador_sillas"></div>
-         <label for="no_mesa">Invitados sin asignar:</label>
-        <div id="">
-            <a tabindex="0" class="invitados"  role="button" data-html="true" data-toggle="popover" data-trigger="focus" title="Nombre Apellido" data-content="<div><b>AÑOS:</b> 5</br><b>DEPARATAMENTO:</b> Informatica</div>" data-placement="top" data-container="body">NA</a>
-            <a tabindex="0" class="invitados"  role="button" data-html="true" data-toggle="popover" data-trigger="focus" title="Nombre Apellido" data-content="<div><b>AÑOS:</b> 5</br><b>DEPARATAMENTO:</b> Informatica</div>" data-placement="top" data-container="body">NA</a>
-
+        <br/>
+        <div class="col-lg-12">
+            <label for="contenedor_asignacion_manual">Asignacion Manual</label>
+            
+            <div id="contenedor_asignacion_manual" class="silla">
+            </div>
+            
         </div>
+
 
     </div>
 
@@ -127,7 +139,7 @@ echo $move2;
 
 
                             if ($tiene_mesas > 0) {
-                                $tabla = '<div class="tabla_localidad con_mesa" id="' . $titulo . '-' . $columnas . '-' . $filas . '" data-toggle="tooltip" data-placement="top" title="' . $titulo . '">';
+                                $tabla = '<div class="tabla_localidad con_mesa" id="' . $titulo . '-' . $columnas . '-' . $filas . '">';
                             } else {
                                 $tabla = '<div class="tabla_localidad">';
                             }
@@ -138,6 +150,14 @@ echo $move2;
                                 $tabla.='<tr>';
                                 for ($j = 0; $j < $columnas; $j++) {
                                     $tabla.='<td class="secciones_mesas asigna_mesas_' . $tiene_mesas . '" id="' . $titulo . '-' . ($j + 1) . '-' . ($i + 1) . '">';
+
+                                    $url = URL . 'mesas/json/' . ($j + 1) . '/' . ($i + 1) . '/' . $titulo;
+                                    $json = file_get_contents($url);
+                                    $obj = json_decode($json);
+
+                                    if ($obj->estado != 0) {
+                                        $tabla.= dibujaMesa($obj->no_mesa, $obj->no_sillas, $obj->tipo);
+                                    }
 
                                     $tabla.='</td>';
                                 }
@@ -153,21 +173,7 @@ echo $move2;
                         ?>
                     </div>
                 </div>
-                <div id="mesas_vacias">
-                        <?php
-                        foreach ($mesas as $loop) {
-                            $mesa = $loop->no_mesa;
-                            $sillas = $loop->no_sillas;
-                            $tipo = $loop->tipo;
-                            $contenedor = $loop->contenedor;
-                            $columna = $loop->columna;
-                            $fila = $loop->fila;
 
-
-                            echo dibujaMesa($mesa, $sillas, $tipo);
-                        }
-                        ?>
-                    </div>
             </div>
         </div>
         <!-- /#page-content-wrapper -->

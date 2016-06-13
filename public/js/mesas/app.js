@@ -60,12 +60,12 @@
                     arrayMesas.forEach(function (arr, index, object) {
                         if (arr.mesa === id[0] && arr.sillas === id[1] && arr.tipo === id[2]) {
                             object.splice(index, 1);
-                            
+
                             $("#generador_sillas").html(generarMesa($("#no_sillas").val(), $("#no_mesa").val(), esMediaLuna($('#media_luna'))));
                         }
                     });
 
-                    
+
                     autoGuardar();
 
                 }
@@ -96,16 +96,22 @@
         },
         animation: 150,
         onEnd: function (evt) {
-            arrayMesas.push(creaObjMesa(evt));
-           $("#generador_sillas").html(generarMesa($("#no_sillas").val(), $("#no_mesa").val(), esMediaLuna($('#media_luna'))));
-            autoGuardar();
+            if (evt.item.parentNode.id != "generador_sillas") {
+                arrayMesas.push(creaObjMesa(evt));
+                $("#generador_sillas").html(generarMesa($("#no_sillas").val(), $("#no_mesa").val(), esMediaLuna($('#media_luna'))));
+                autoGuardar();
+            }
+
         }
     });
 
-    $('[data-toggle="tooltip"]').tooltip();
-    $('.invitados').popover();
 
-
+    [].forEach.call(byId('wrapper').getElementsByClassName('silla'), function (el) {
+        Sortable.create(el, {
+            group: 'sillas',
+            animation: 150
+        });
+    });
 
 
     $("#generador_sillas").html(generarMesa($("#no_sillas").val(), $("#no_mesa").val(), 1));
@@ -113,7 +119,7 @@
     function generarMesa(no_sillas, no_mesa, tipo_mesa) {
 
         var continuar = true;
-        var mesa="";
+        var mesa = "";
 
         arrayMesas.forEach(function (arr) {
             if (arr.mesa === no_mesa) {
@@ -182,10 +188,10 @@
                     silla++;
                 }
             }
-        }else{
-            
-            mesa+='<div class="alert alert-warning" style="margin-bottom:0px;" role="alert"><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span> Este identificador de mesa ya fue utilizado!<br/> cambielo para poder generar la mesa.</div>';
-           
+        } else {
+
+            mesa += '<div class="alert alert-warning" style="margin-bottom:0px;" role="alert"><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span> Este identificador de mesa ya fue utilizado!<br/> cambielo para poder generar la mesa.</div>';
+
         }
 
         return mesa += '</div>';
@@ -201,14 +207,14 @@
 
     sorterSillas();
 
-    function esMediaLuna(check){
+    function esMediaLuna(check) {
         var tipo = 1;
         if (check.is(":checked")) {
             tipo = 2;
         }
         return tipo;
     }
-    
+
     function sorterSillas() {
         [].forEach.call(byId('wrapper').getElementsByClassName('silla'), function (el) {
             Sortable.create(el, {
@@ -242,18 +248,18 @@
                     + item.tipo + "," + item.contenedor + "," + item.columna + "," + item.fila;
         });
 
+        console.log(values);
         $.post("mesas/agregar",
                 {
                     params: values
                 },
-                function (status) {
+                function (data, status) {
                     if (status != "success") {
                         $('#alert_auto_guardado').fadeIn('fast', function () {
                             $(this).delay(1500).fadeOut('fast');
                         });
                     }
                 });
-
     }
 
 })();

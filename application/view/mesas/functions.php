@@ -1,4 +1,17 @@
 <?php
+function getInvitado($no_mesa, $no_silla){
+    $invitado='';
+    $url = URL . 'mesas/invitado/' . $no_mesa . '/' . $no_silla;
+    $json = file_get_contents($url);
+    $obj = json_decode($json);
+    
+    if ($obj->estado != 0) {
+    $invitado='<div class="invitados anos_'.$obj->anios.'">'.strtoupper (substr($obj->nombres, 1,1)).'</div>';
+    }
+    
+    return $invitado;
+}
+
 function dibujaMesa($numMesa, $numSillas, $tipo) {
     $silla = 1;
     $mesa = '<div id="' . $numMesa . '-' . $numSillas . '-' . $tipo . '" class="contenedor_mesa">
@@ -7,8 +20,13 @@ function dibujaMesa($numMesa, $numSillas, $tipo) {
 
     if ($tipo == 1) {
         $value = 360 / $numSillas;
-        for ($i = 0; $i <= 360; $i = $i + $value) {
-            $mesa.='<div  class="sillas_contenedor" style="transform:rotateZ(' . $i . 'deg);"><div class="silla" id="mesa-' . $numMesa . '-silla-' . $silla . '"></div></div>';
+        for ($i = 0; $i < 360; $i = $i + $value) {
+            $mesa.='<div  class="sillas_contenedor" style="transform:rotateZ(' . $i . 'deg);">'
+                    . '<div class="silla" id="mesa-' . $numMesa . '-silla-' . $silla . '">';
+                    
+            $mesa.=getInvitado($numMesa,$silla);
+            
+            $mesa.= '</div></div>';
             $silla++;
         }
     }

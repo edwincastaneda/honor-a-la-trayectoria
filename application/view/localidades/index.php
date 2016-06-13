@@ -91,7 +91,7 @@ echo $move;
                                 <a href="#menu-toggle" class="btn btn-default menu-toggle botones_titulo"><span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span></a>
                             </td>
                             <td>
-                                <h1>Ubicaciones</h1>
+                                <h1>Localidades</h1>
                             </td>
                         </tr>
                     </table>
