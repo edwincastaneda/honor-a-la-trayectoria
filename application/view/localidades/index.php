@@ -95,9 +95,6 @@ echo $move;
                             </td>
                         </tr>
                     </table>
-                    <div class="row alert alert-success" style="display:none;"  id="alert_auto_guardado" role="alert">
-                        <strong>Auto-Guardado!</strong> Los cambios han sido actualizados.
-                    </div>
                     <form id="formulario_tablas">
                         <div id="mapa_localidades" class="row seccion_tabla">
 

@@ -43,9 +43,9 @@ class Model {
 
         $query->execute($parameters);
     }
-    
+
     // UBICACIONES
-    
+
     public function getUbicaciones() {
 
         $sql = "SELECT * FROM localidades";
@@ -54,7 +54,6 @@ class Model {
 
         return $query->fetchAll();
     }
-    
 
     public function agregarUbicacion($descripcion, $columnas, $filas, $padre_descripcion, $padre_columna, $padre_fila, $mesas) {
 
@@ -70,10 +69,9 @@ class Model {
         $query->execute();
     }
 
-   
-        // MESAS
-    
-    
+    // MESAS
+
+
     public function getMesas() {
 
         $sql = "SELECT * FROM mesas";
@@ -82,22 +80,22 @@ class Model {
 
         return $query->fetchAll();
     }
-    
+
     public function getMesa($columna, $fila, $contenedor) {
 
         $sql = "SELECT *, 1 as estado FROM mesas 
                 WHERE columna=:columna
                 AND fila=:fila
                 AND contenedor=:contenedor";
-        
+
         $query = $this->db->prepare($sql);
         $parameters = array(':columna' => $columna, ':fila' => $fila, ':contenedor' => $contenedor);
         $query->execute($parameters);
 
-        if($query->rowCount()>0){
+        if ($query->rowCount() > 0) {
             return json_encode($query->fetch());
-        }else{
-            return json_encode(array("estado"=>"0"));
+        } else {
+            return json_encode(array("estado" => "0"));
         }
     }
 
@@ -114,30 +112,63 @@ class Model {
         $query = $this->db->prepare($sql);
         $query->execute();
     }
-    
-    
-    public function getInvitado($no_mesa,$no_silla){
-                $sql = "SELECT am.no_mesa, am.no_silla, am.codigo_barras, i.nombres, i.apellidos, i.empresa, i.departamento, i.puesto, i.anios, i.no_personas, 1 as estado 
+
+    public function getInvitadoMesa($no_mesa, $no_silla) {
+        $sql = "SELECT am.no_mesa, am.no_silla, am.codigo_barras, i.nombres, i.apellidos, i.empresa, i.departamento, i.puesto, i.anios, i.no_personas, 1 as estado 
                         FROM asignacion_mesas am
                         INNER JOIN invitados i ON i.codigo_barras=am.codigo_barras
                         WHERE am.no_mesa=:no_mesa
                         AND am.no_silla=:no_silla";
-        
+
         $query = $this->db->prepare($sql);
         $parameters = array(':no_mesa' => $no_mesa, ':no_silla' => $no_silla);
         $query->execute($parameters);
 
-        if($query->rowCount()>0){
+        if ($query->rowCount() > 0) {
             return json_encode($query->fetch());
-        }else{
-            return json_encode(array("estado"=>"0"));
+        } else {
+            return json_encode(array("estado" => "0"));
         }
+    }
+
+    public function getInvitadosMesas() {
+        $sql = "SELECT am.no_mesa, am.no_silla, am.codigo_barras, i.nombres, i.apellidos, i.empresa, i.departamento, i.puesto, i.anios, i.no_personas, 1 as estado 
+                        FROM asignacion_mesas am
+                        INNER JOIN invitados i ON i.codigo_barras=am.codigo_barras";
+
+        $query = $this->db->prepare($sql);
+        $query->execute();
+
+        return $query->fetchAll();
+    }
+
+    
+    public function borrarAsignacionMesa() {
+        $sql = "DELETE FROM asignacion_mesas";
+        $query = $this->db->prepare($sql);
+        $query->execute();
     }
     
     
+    public function asignarMesaInvitado($no_mesa, $no_silla, $codigo_barras) {
+
+        $sql = "INSERT INTO asignacion_mesas (no_mesa, no_silla, codigo_barras) VALUES (:no_mesa, :no_silla, :codigo_barras)";
+        $query = $this->db->prepare($sql);
+        $parameters = array(':no_mesa' => $no_mesa, ':no_silla' => $no_silla, ':codigo_barras' => $codigo_barras);
+        $query->execute($parameters);
+    }
     
     
-    
+    public function getInvitadosNoAsignados(){
+        $sql = "SELECT * FROM  invitados 
+                WHERE codigo_barras 
+                NOT IN (SELECT codigo_barras FROM  asignacion_mesas)";
+
+        $query = $this->db->prepare($sql);
+        $query->execute();
+
+        return $query->fetchAll();
+    }
     
     
     

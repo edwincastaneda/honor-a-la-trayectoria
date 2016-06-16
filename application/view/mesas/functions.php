@@ -1,4 +1,8 @@
 <?php
+function setInvitado($anos,$codigo_barras,$nombres, $apellidos, $empresa, $departamento, $puesto){
+    return $invitado='<div data-title="'.$nombres.' '.$apellidos.'" data-content="<strong>Empresa:</strong> '.$empresa.'<br/><strong>Departamento:</strong> '.$departamento.'<br/><strong>Puesto:</strong> '.$puesto.'" class="invitados anos_'.$anos.'" id="'.$codigo_barras.'">'.strtoupper (substr($nombres, 0,1)).'</div>';
+}
+
 function getInvitado($no_mesa, $no_silla){
     $invitado='';
     $url = URL . 'mesas/invitado/' . $no_mesa . '/' . $no_silla;
@@ -6,7 +10,7 @@ function getInvitado($no_mesa, $no_silla){
     $obj = json_decode($json);
     
     if ($obj->estado != 0) {
-    $invitado='<div class="invitados anos_'.$obj->anios.'">'.strtoupper (substr($obj->nombres, 1,1)).'</div>';
+         $invitado = setInvitado($obj->anios,$obj->codigo_barras,$obj->nombres,$obj->apellidos,$obj->empresa,$obj->departamento,$obj->puesto);
     }
     
     return $invitado;
@@ -21,8 +25,8 @@ function dibujaMesa($numMesa, $numSillas, $tipo) {
     if ($tipo == 1) {
         $value = 360 / $numSillas;
         for ($i = 0; $i < 360; $i = $i + $value) {
-            $mesa.='<div  class="sillas_contenedor" style="transform:rotateZ(' . $i . 'deg);">'
-                    . '<div class="silla" id="mesa-' . $numMesa . '-silla-' . $silla . '">';
+            $mesa.='<div class="sillas_contenedor" style="transform:rotateZ(' . $i . 'deg);">'
+                    . '<div class="silla" id="' . $numMesa . '-' . $silla . '">';
                     
             $mesa.=getInvitado($numMesa,$silla);
             
@@ -72,7 +76,14 @@ function dibujaMesa($numMesa, $numSillas, $tipo) {
                     $grados = ($i + 90 + 6);
                     break;
             }
-            $mesa.='<div  class="sillas_contenedor" style="transform:rotateZ(' . $grados . 'deg);"><div class="silla" id="mesa-' . $numMesa . '-silla-' . $silla . '"></div></div>';
+            //$mesa.='<div  class="sillas_contenedor" style="transform:rotateZ(' . $grados . 'deg);"><div class="silla" id="mesa-' . $numMesa . '-silla-' . $silla . '"></div></div>';
+            
+            $mesa.='<div class="sillas_contenedor" style="transform:rotateZ(' . $grados . 'deg);">'
+                    . '<div class="silla" id="' . $numMesa . '-' . $silla . '">';
+                    
+            $mesa.=getInvitado($numMesa,$silla);
+            
+            $mesa.= '</div></div>';
             $silla++;
         }
     }

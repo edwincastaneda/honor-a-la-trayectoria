@@ -3,6 +3,8 @@
 class Mesas extends Controller {
 
     public function index() {
+        $invNA = $this->model->getInvitadosNoAsignados();
+        $invitados = $this->model->getInvitadosMesas();
         $mesas = $this->model->getMesas();
         $ubicaciones = $this->model->getUbicaciones();
 
@@ -34,8 +36,23 @@ class Mesas extends Controller {
     }
 
     public function invitado($no_mesa, $no_silla) {
-        $invitado = $this->model->getInvitado($no_mesa, $no_silla);
+        $invitado = $this->model->getInvitadoMesa($no_mesa, $no_silla);
         require APP . 'view/mesas/invitado.php';
+    }
+
+    public function actualizar() {
+
+        $invitados = ($_POST["params"]['arrayInvitados']);
+
+        if (isset($invitados)) {
+            $this->model->borrarAsignacionMesa();
+            foreach ($invitados as $values) {
+                list($no_mesa, $no_silla, $codigo_barras) = explode(',', $values);
+                $this->model->asignarMesaInvitado($no_mesa, $no_silla, $codigo_barras);
+            }
+        }
+        
+        
     }
 
 }

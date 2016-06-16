@@ -53,7 +53,9 @@
                 var contenedor = evt.item.parentNode.id.split('-');
 
                 var item = evt.item,
-                        ctrl = evt.target;
+                    ctrl = evt.target;
+            
+            
                 if (Sortable.utils.is(ctrl, ".js-remove")) {
                     item.parentNode.removeChild(item);
 
@@ -64,11 +66,10 @@
                             $("#generador_sillas").html(generarMesa($("#no_sillas").val(), $("#no_mesa").val(), esMediaLuna($('#media_luna'))));
                         }
                     });
-
-
                     autoGuardar();
-
                 }
+                
+                
             },
             onEnd: function (evt) {
 
@@ -103,14 +104,6 @@
             }
 
         }
-    });
-
-
-    [].forEach.call(byId('wrapper').getElementsByClassName('silla'), function (el) {
-        Sortable.create(el, {
-            group: 'sillas',
-            animation: 150
-        });
     });
 
 
@@ -198,6 +191,20 @@
     }
 
 
+    $(document).on("click", ".contenedor_mesa", function () {
+        var id = $(this).attr('id').split('-');  
+         var data = new Object();
+        $("#tabla_sillas_mesa").bootstrapTable('removeAll');
+        arrayInvitados.forEach(function (arr, index, object) {
+            if (arr.no_mesa === id[0]) {
+                $("#tabla_sillas_mesa").bootstrapTable('append', arr);
+            }
+        });
+        $("#descripcion_mesas_modal").modal("show");
+        $("#descripcion_mesas_titulo").html("Mesa: "+id[0]);
+    });
+
+
 
     $("#no_sillas, #no_mesa, #media_luna").bind('keyup mouseup click', function () {
         $("#generador_sillas").html(generarMesa($("#no_sillas").val(), $("#no_mesa").val(), esMediaLuna($('#media_luna'))));
@@ -219,7 +226,30 @@
         [].forEach.call(byId('wrapper').getElementsByClassName('silla'), function (el) {
             Sortable.create(el, {
                 group: 'sillas',
-                animation: 150
+                animation: 150,
+                onEnd: function (evt) {
+                    var id = evt.item.id;
+                    var contenedor = evt.item.parentNode.id.split('-');
+                    var contenedor2 = evt.item.parentNode.parentNode.parentNode.parentNode.id.split('-');
+
+                    if (contenedor != evt.from.id && contenedor2 != "generador_sillas") {
+                        arrayInvitados.forEach(function (arr) {
+                            if (arr.codigo_barras === id) {
+
+                                if (contenedor == "contenedor_asignacion_manual") {
+                                    arr.no_mesa = "9999";
+                                    arr.no_silla = "1";
+                                } else {
+                                    arr.no_mesa = contenedor[0];
+                                    arr.no_silla = contenedor[1];
+                                }
+                            }
+                        });
+                        autoGuardarInvitados();
+                    }
+
+
+                }
             });
         });
     }
@@ -248,12 +278,37 @@
                     + item.tipo + "," + item.contenedor + "," + item.columna + "," + item.fila;
         });
 
-        console.log(values);
         $.post("mesas/agregar",
                 {
                     params: values
                 },
-                function (data, status) {
+                function (status) {
+                    if (status != "success") {
+                        $('#alert_auto_guardado').fadeIn('fast', function () {
+                            $(this).delay(1500).fadeOut('fast');
+                        });
+                    }
+                });
+
+    }
+
+
+
+    function autoGuardarInvitados() {
+        var values = {};
+        values.arrayInvitados = {};
+
+        arrayInvitados.forEach(function (item, index) {
+            if (item.no_mesa != "9999") {
+                values.arrayInvitados[index] = item.no_mesa + "," + item.no_silla + "," + item.codigo_barras;
+            }
+        });
+
+        $.post("mesas/actualizar",
+                {
+                    params: values
+                },
+                function (status) {
                     if (status != "success") {
                         $('#alert_auto_guardado').fadeIn('fast', function () {
                             $(this).delay(1500).fadeOut('fast');

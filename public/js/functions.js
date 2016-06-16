@@ -1,5 +1,10 @@
-
+    $(window).load(function () {
+        $(".loading").fadeOut("slow");
+        $("#wrapper").fadeIn("slow");
+    });
+    
 (function () {
+
 
 
     $(".menu-toggle").click(function (e) {

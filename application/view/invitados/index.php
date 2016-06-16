@@ -28,7 +28,7 @@ function fHTML($campo) {
         }
     };
 </script>
-<div class="container-fluid">
+<div id="wrapper" class="container-fluid">
     <div class="row">
         <div class="container">
             <h2>Invitados</h2>

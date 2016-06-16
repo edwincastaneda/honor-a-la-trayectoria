@@ -8,6 +8,7 @@
             <span class="icon-bar"></span>
           </button>
           <a class="navbar-brand" href="#">Honor a la Trayectoria</a>
+          <a id="alert_auto_guardado"  class="navbar-brand" style="display:none;margin-left:30px;color:#fff;font-size: 1em;"><span style="color:yellowgreen;" class="glyphicon glyphicon-ok" aria-hidden="true"></span> <strong>Auto-Guardado!</strong> Los cambios han sido actualizados</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
