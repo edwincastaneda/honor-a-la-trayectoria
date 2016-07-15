@@ -190,13 +190,13 @@
         return mesa += '</div>';
     }
 
-
+    //MODAL SOBRE MESA
     $(document).on("click", ".contenedor_mesa", function () {
         var id = $(this).attr('id').split('-');  
          var data = new Object();
         $("#tabla_sillas_mesa").bootstrapTable('removeAll');
         arrayInvitados.forEach(function (arr, index, object) {
-            if (arr.no_mesa === id[0]) {
+            if (arr.mesa === id[0]) {
                 $("#tabla_sillas_mesa").bootstrapTable('append', arr);
             }
         });
@@ -205,7 +205,46 @@
     });
 
 
-
+    //MODAL ASIGNACION AUTOMATICA
+    $(document).on("click", "#boton_asignacion_automatica", function () {
+        $("#asigna_automatico").modal("show");
+    });
+    
+    //ASIGNAR AUTOMATICAMENTE
+    $(document).on("click", "#asignar_automaticamente", function () {
+        event.preventDefault();
+        
+        var count1 = $('input[type=checkbox]:checked.checkMesas').length;
+        var count2 = $('input[type=checkbox]:checked.checkCat').length;
+        
+        if(count1 > 0 && count2 > 0){ 
+        $.post("mesas/asignarAuto",
+                {
+                    params: $("#asignar").serialize()
+                },
+                function (data, status) {
+                    
+                    if (status == "success") {
+                        location.reload();
+                        //console.log(data,status);
+                    }
+                });
+        }else{
+            alert("Debe Seleccionar al menos 1 mesa y 1 categoria");
+        }
+                
+                
+    });
+    
+    $("#ckbCheckAllMesas").click(function () {
+         $(".checkMesas").prop('checked', $(this).prop('checked'));
+    });
+    
+    $("#ckbCheckAllCat").click(function () {
+         $(".checkCat").prop('checked', $(this).prop('checked'));
+    });
+    
+    
     $("#no_sillas, #no_mesa, #media_luna").bind('keyup mouseup click', function () {
         $("#generador_sillas").html(generarMesa($("#no_sillas").val(), $("#no_mesa").val(), esMediaLuna($('#media_luna'))));
         sorterSillas();
@@ -234,14 +273,14 @@
 
                     if (contenedor != evt.from.id && contenedor2 != "generador_sillas") {
                         arrayInvitados.forEach(function (arr) {
-                            if (arr.codigo_barras === id) {
+                            if (arr.codigoBarras === id) {
 
                                 if (contenedor == "contenedor_asignacion_manual") {
-                                    arr.no_mesa = "9999";
-                                    arr.no_silla = "1";
+                                    arr.mesa = "9999";
+                                    arr.silla = "1";
                                 } else {
-                                    arr.no_mesa = contenedor[0];
-                                    arr.no_silla = contenedor[1];
+                                    arr.mesa = contenedor[0];
+                                    arr.silla = contenedor[1];
                                 }
                             }
                         });
@@ -282,8 +321,8 @@
                 {
                     params: values
                 },
-                function (status) {
-                    if (status != "success") {
+                function (data, status) {
+                    if (status == "success") {
                         $('#alert_auto_guardado').fadeIn('fast', function () {
                             $(this).delay(1500).fadeOut('fast');
                         });
@@ -299,17 +338,17 @@
         values.arrayInvitados = {};
 
         arrayInvitados.forEach(function (item, index) {
-            if (item.no_mesa != "9999") {
-                values.arrayInvitados[index] = item.no_mesa + "," + item.no_silla + "," + item.codigo_barras;
+            if (item.mesa != "9999") {
+                values.arrayInvitados[index] = item.mesa + "," + item.silla + "," + item.codigoBarras;
             }
         });
-
+        
         $.post("mesas/actualizar",
                 {
                     params: values
                 },
-                function (status) {
-                    if (status != "success") {
+                function (data, status) {
+                    if (status == "success") {
                         $('#alert_auto_guardado').fadeIn('fast', function () {
                             $(this).delay(1500).fadeOut('fast');
                         });

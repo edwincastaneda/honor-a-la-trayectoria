@@ -2,9 +2,6 @@
 
 class Model {
 
-    /**
-     * @param object $db A PDO database connection
-     */
     function __construct($db) {
         try {
             $this->db = $db;
@@ -13,33 +10,36 @@ class Model {
         }
     }
 
-    public function getInvitados() {
+    // INVITADOS
 
-        $sql = "SELECT * FROM invitados";
+    public function getInvitados($tabla) {
+
+        $sql = "SELECT * FROM ".$tabla;
         $query = $this->db->prepare($sql);
         $query->execute();
-
-        /* if(!$count){
-          return json_encode($query->fetchAll());
-          }else{
-          return $query->rowCount();
-          }
-         */
 
         return json_encode($query->fetchAll());
     }
 
-    public function agregarInvitado($codigo, $nombresyapellidos, $barras) {
-        $sql = "INSERT INTO invitados (codigo, nombresApellidos, codigoBarras) VALUES (:codigo, :nombresApellidos, :codigoBarras)";
+    public function agregarInvitado($nombresApellidos, $codigoBarras, $empresa, $departamento, $puesto, $asistencia, $fechaIngreso, $anios, $numPersonas, $confirmacion, $entregaPin, $entregadorPin, $entregadorPuesto) {
+        $sql = "INSERT INTO asistencia (nombresApellidos, codigoBarras, empresa, departamento, puesto, asistencia, fechaIngreso, anios, numPersonas, confirmacion, entregaPin, entregadorPin, entregadorPuesto) VALUES (:nombresApellidos, :codigoBarras, :empresa, :departamento, :puesto, :asistencia, :fechaIngreso, :anios, :numPersonas, :confirmacion, :entregaPin, :entregadorPin, :entregadorPuesto)";
         $query = $this->db->prepare($sql);
-        $parameters = array(':codigo' => $codigo, ':nombresApellidos' => $nombresyapellidos, ':codigoBarras' => $barras);
+        $parameters = array(':nombresApellidos' => $nombresApellidos, ':codigoBarras' => $codigoBarras, ':empresa' => $empresa, ':departamento' => $departamento, ':puesto' => $puesto, ':asistencia' => $asistencia, ':fechaIngreso' => $fechaIngreso, ':anios' => $anios, ':numPersonas' => $numPersonas, ':confirmacion' => $confirmacion, ':entregaPin' => $entregaPin, ':entregadorPin' => $entregadorPin, ':entregadorPuesto' => $entregadorPuesto);
         $query->execute($parameters);
     }
 
     public function borrarInvitado($codigo) {
-        $sql = "DELETE FROM invitados WHERE codigo = :codigo";
+        $sql = "DELETE FROM asistencia WHERE codigo = :codigo";
         $query = $this->db->prepare($sql);
         $parameters = array(':codigo' => $codigo);
+
+        $query->execute($parameters);
+    }
+
+    public function updateInvitado($codigo, $codigoBarras, $nombresApellidos, $empresa, $departamento, $puesto, $asistencia, $fechaIngreso, $anios, $numPersonas, $confirmacion, $entregaPin, $entregadorPin, $entregadorPuesto) {
+        $sql = "UPDATE asistencia SET codigo = :codigo, codigoBarras = :codigoBarras, nombresApellidos = :nombresApellidos, empresa=:empresa, departamento=:departamento, puesto=:puesto, asistencia=:asistencia, fechaIngreso=:fechaIngreso, anios=:anios, numPersonas=:numPersonas, confirmacion=:confirmacion, entregaPin=:entregaPin, entregadorPin=:entregadorPin WHERE codigo = :codigo AND codigoBarras=:codigoBarras";
+        $query = $this->db->prepare($sql);
+        $parameters = array(':codigo' => $codigo, ':codigoBarras' => $codigoBarras, ':nombresApellidos' => $nombresApellidos, ':empresa' => $empresa, ':departamento' => $departamento, ':puesto' => $puesto, ':asistencia' => $asistencia, ':fechaIngreso' => $fechaIngreso, ':anios' => $anios, ':numPersonas' => $numPersonas, ':confirmacion' => $confirmacion, ':entregaPin' => $entregaPin, ':entregadorPin' => $entregadorPin, ':entregadorPuesto' => $entregadorPuesto);
 
         $query->execute($parameters);
     }
@@ -81,6 +81,15 @@ class Model {
         return $query->fetchAll();
     }
 
+    public function getMesasJson() {
+
+        $sql = "SELECT * FROM mesas";
+        $query = $this->db->prepare($sql);
+        $query->execute();
+
+        return json_encode($query->fetchAll());
+    }
+
     public function getMesa($columna, $fila, $contenedor) {
 
         $sql = "SELECT *, 1 as estado FROM mesas 
@@ -113,15 +122,15 @@ class Model {
         $query->execute();
     }
 
-    public function getInvitadoMesa($no_mesa, $no_silla) {
-        $sql = "SELECT am.no_mesa, am.no_silla, am.codigo_barras, i.nombres, i.apellidos, i.empresa, i.departamento, i.puesto, i.anios, i.no_personas, 1 as estado 
-                        FROM asignacion_mesas am
-                        INNER JOIN invitados i ON i.codigo_barras=am.codigo_barras
-                        WHERE am.no_mesa=:no_mesa
-                        AND am.no_silla=:no_silla";
+    public function getInvitadoMesa($mesa, $silla) {
+        $sql = "SELECT am.mesa, am.silla, am.codigoBarras, i.nombresApellidos, i.empresa, i.departamento, i.puesto, i.anios, i.numPersonas, 1 as estado 
+                        FROM asignacionmesa am
+                        INNER JOIN asistencia i ON i.codigoBarras=am.codigoBarras
+                        WHERE am.mesa=:mesa
+                        AND am.silla=:silla";
 
         $query = $this->db->prepare($sql);
-        $parameters = array(':no_mesa' => $no_mesa, ':no_silla' => $no_silla);
+        $parameters = array(':mesa' => $mesa, ':silla' => $silla);
         $query->execute($parameters);
 
         if ($query->rowCount() > 0) {
@@ -132,9 +141,9 @@ class Model {
     }
 
     public function getInvitadosMesas() {
-        $sql = "SELECT am.no_mesa, am.no_silla, am.codigo_barras, i.nombres, i.apellidos, i.empresa, i.departamento, i.puesto, i.anios, i.no_personas, 1 as estado 
-                        FROM asignacion_mesas am
-                        INNER JOIN invitados i ON i.codigo_barras=am.codigo_barras";
+        $sql = "SELECT am.mesa, am.silla, am.codigoBarras, i.nombresApellidos, i.empresa, i.departamento, i.puesto, i.anios, i.numPersonas, 1 as estado 
+                        FROM asignacionmesa am
+                        INNER JOIN asistencia i ON i.codigoBarras=am.codigoBarras";
 
         $query = $this->db->prepare($sql);
         $query->execute();
@@ -142,92 +151,142 @@ class Model {
         return $query->fetchAll();
     }
 
-    
     public function borrarAsignacionMesa() {
-        $sql = "DELETE FROM asignacion_mesas";
+        $sql = "DELETE FROM asignacionmesa";
         $query = $this->db->prepare($sql);
         $query->execute();
     }
-    
-    
-    public function asignarMesaInvitado($no_mesa, $no_silla, $codigo_barras) {
 
-        $sql = "INSERT INTO asignacion_mesas (no_mesa, no_silla, codigo_barras) VALUES (:no_mesa, :no_silla, :codigo_barras)";
+    public function asignarMesaInvitado($mesa, $silla, $codigoBarras) {
+
+        $sql = "INSERT INTO asignacionmesa (mesa, silla, codigoBarras) VALUES (:mesa, :silla, :codigoBarras)";
         $query = $this->db->prepare($sql);
-        $parameters = array(':no_mesa' => $no_mesa, ':no_silla' => $no_silla, ':codigo_barras' => $codigo_barras);
+        $parameters = array(':mesa' => $mesa, ':silla' => $silla, ':codigoBarras' => $codigoBarras);
         $query->execute($parameters);
     }
-    
-    
-    public function getInvitadosNoAsignados(){
-        $sql = "SELECT * FROM  invitados 
-                WHERE codigo_barras 
-                NOT IN (SELECT codigo_barras FROM  asignacion_mesas)";
+
+    public function getInvitadosNoAsignados() {
+        $sql = "SELECT * FROM  asistencia 
+                WHERE codigoBarras 
+                NOT IN (SELECT codigoBarras FROM  asignacionmesa)";
 
         $query = $this->db->prepare($sql);
         $query->execute();
 
         return $query->fetchAll();
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    /**
-     * Get a song from database
-     */
-    public function getSong($song_id) {
-        $sql = "SELECT id, artist, track, link FROM song WHERE id = :song_id LIMIT 1";
+
+    public function exeSQL($query) {
+        $sql = $query;
         $query = $this->db->prepare($sql);
-        $parameters = array(':song_id' => $song_id);
+        $query->execute();
+    }
 
-        // useful for debugging: you can see the SQL behind above construction by using:
-        // echo '[ PDO DEBUG ]: ' . Helper::debugPDO($sql, $parameters);  exit();
+    public function getCategorias() {
 
-        $query->execute($parameters);
+        $sql = "SELECT anios FROM asistencia GROUP BY anios";
+        $query = $this->db->prepare($sql);
+        $query->execute();
 
-        // fetch() is the PDO method that get exactly one result
+        return json_encode($query->fetchAll());
+    }
+   
+
+    public function getNumeroSillas($no_mesa) {
+        $sql = "SELECT no_sillas FROM mesas WHERE no_mesa=" . $no_mesa;
+        $query = $this->db->prepare($sql);
+        $query->execute();
         return $query->fetch();
     }
 
-    /**
-     * Update a song in database
-     * // TODO put this explaination into readme and remove it from here
-     * Please note that it's not necessary to "clean" our input in any way. With PDO all input is escaped properly
-     * automatically. We also don't use strip_tags() etc. here so we keep the input 100% original (so it's possible
-     * to save HTML and JS to the database, which is a valid use case). Data will only be cleaned when putting it out
-     * in the views (see the views for more info).
-     * @param string $artist Artist
-     * @param string $track Track
-     * @param string $link Link
-     * @param int $song_id Id
-     */
-    public function updateSong($artist, $track, $link, $song_id) {
-        $sql = "UPDATE song SET artist = :artist, track = :track, link = :link WHERE id = :song_id";
+    public function getSillasUtilizadas($no_mesa) {
+        $sql = "SELECT silla FROM asignacionmesa WHERE mesa=" . $no_mesa;
         $query = $this->db->prepare($sql);
-        $parameters = array(':artist' => $artist, ':track' => $track, ':link' => $link, ':song_id' => $song_id);
-
-        // useful for debugging: you can see the SQL behind above construction by using:
-        // echo '[ PDO DEBUG ]: ' . Helper::debugPDO($sql, $parameters);  exit();
-
-        $query->execute($parameters);
+        $query->execute();
+        return $query->fetchAll(PDO::FETCH_COLUMN, 0);
+        ;
     }
 
-    /**
-     * Get simple "stats". This is just a simple demo to show
-     * how to use more than one model in a controller (see application/controller/songs.php for more)
-     */
-    public function getAmountOfSongs() {
-        $sql = "SELECT COUNT(id) AS amount_of_songs FROM song";
+    public function getInvitadosSinAsignar($categorias) {
+        $sql = "SELECT codigoBarras, RAND() as random FROM asistencia WHERE codigoBarras 
+                NOT IN (SELECT codigoBarras FROM asignacionmesa)
+                AND anios IN (" . $categorias . ") ORDER BY random LIMIT 1 ";
+
         $query = $this->db->prepare($sql);
         $query->execute();
 
-        // fetch() is the PDO method that get exactly one result
-        return $query->fetch()->amount_of_songs;
+        return $query->fetch();
     }
 
+// CHECKIN
+
+    public function getInvitadosNoConfirmados($tabla) {
+
+        $sql = "SELECT * FROM ".$tabla." WHERE asistencia=0";
+        $query = $this->db->prepare($sql);
+        $query->execute();
+
+        return json_encode($query->fetchAll());
+    }
+
+   public function registrarInvitado($codigoBarras){
+        $sql = "UPDATE asistencia SET asistencia=1 WHERE codigoBarras=:codigoBarras";
+        $query = $this->db->prepare($sql);
+        $parameters = array(':codigoBarras' => $codigoBarras);
+        $query->execute($parameters);
+    }
+   
+    // GRAFICAS
+    
+    public function getBarras($anios){
+        $sql = "SELECT 
+                (SELECT count(*) FROM asistencia WHERE anios=".$anios." AND asistencia=1) AS registrados,
+                (SELECT count(*) FROM asistencia WHERE anios=".$anios." AND asistencia=0) AS no_registrados";
+        
+        $query = $this->db->prepare($sql);
+        $query->execute();
+
+        return json_encode($query->fetch());
+    }
+    
+    
+    // PROGRAMA
+    
+        public function getHomenajeados($anios, $entregadorPin){
+        $sql = "SELECT * FROM asistencia
+                WHERE anios=".$anios."
+                AND entregadorPin=".$entregadorPin;
+        
+        $query = $this->db->prepare($sql);
+        $query->execute();
+
+        return json_encode($query->fetchAll());
+    }
+    
+    public function getGruposPorAnio($anio){
+        $sql = "SELECT  a.entregadorPin as grupo, pe.nombre, pe.puesto FROM asistencia a
+                INNER JOIN perfilEntregador pe ON pe.idperfilEntregador=a.entregadorPin
+                WHERE a.anios=".$anio."
+                AND a.entregadorPin<>''
+                GROUP BY a.entregadorPin";
+        $query = $this->db->prepare($sql);
+        $query->execute();
+
+        return json_encode($query->fetchAll());
+    }
+    
+        public function getCategoriasConColores() {
+
+        $sql = "SELECT a.anios, o.color, o.color2, o.texto FROM asistencia a
+                LEFT JOIN opcionesCategorias o ON o.categoria=a.anios
+                GROUP BY a.anios";
+        
+        $query = $this->db->prepare($sql);
+        $query->execute();
+
+        return $query->fetchAll();
+    }
+    
+
+    
 }

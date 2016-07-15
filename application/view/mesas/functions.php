@@ -1,6 +1,17 @@
+<style>
+    <?php foreach ($categorias as $loop) { 
+    echo ".anos_".$loop->anios."{
+            background: ".$loop->color.";
+            color:#fff;
+            }
+            ";
+    
+    }?>
+</style>
+
 <?php
-function setInvitado($anos,$codigo_barras,$nombres, $apellidos, $empresa, $departamento, $puesto){
-    return $invitado='<div data-title="'.$nombres.' '.$apellidos.'" data-content="<strong>Empresa:</strong> '.$empresa.'<br/><strong>Departamento:</strong> '.$departamento.'<br/><strong>Puesto:</strong> '.$puesto.'" class="invitados anos_'.$anos.'" id="'.$codigo_barras.'">'.strtoupper (substr($nombres, 0,1)).'</div>';
+function setInvitado($anos,$codigo_barras,$nombres_apellidos, $empresa, $departamento, $puesto){
+    return $invitado='<div data-title="'.$nombres_apellidos.'" data-content="<strong>Empresa:</strong> '.$empresa.'<br/><strong>Departamento:</strong> '.$departamento.'<br/><strong>Puesto:</strong> '.$puesto.'" class="invitados anos_'.$anos.'" id="'.$codigo_barras.'">'.strtoupper (substr($nombres_apellidos, 0,1)).'</div>';
 }
 
 function getInvitado($no_mesa, $no_silla){
@@ -10,7 +21,7 @@ function getInvitado($no_mesa, $no_silla){
     $obj = json_decode($json);
     
     if ($obj->estado != 0) {
-         $invitado = setInvitado($obj->anios,$obj->codigo_barras,$obj->nombres,$obj->apellidos,$obj->empresa,$obj->departamento,$obj->puesto);
+         $invitado = setInvitado($obj->anios,$obj->codigoBarras,$obj->nombresApellidos,$obj->empresa,$obj->departamento,$obj->puesto);
     }
     
     return $invitado;

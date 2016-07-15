@@ -1,0 +1,98 @@
+.html{
+    font-size: 18px !important;
+    
+}
+
+.tamanio{
+    
+    font-size: 20px;
+    background: -webkit-linear-gradient(#eee, #4096CA) repeat scroll 0 0 #111111;
+    background: -moz-linear-gradient(#eee, #4096CA) repeat scroll 0 0 #111111;
+    border: 2px solid #A8A8A8;
+    
+}
+
+.sillax{
+   width: 2px;
+   height: 75px;
+   
+    font-size: 10px;
+    
+    background: -webkit-linear-gradient(#F4C63f, #ee) repeat scroll 0 0 #111111;
+    background: -moz-linear-gradient(#F4C63f, #eee) repeat scroll 0 0 #111111;
+    text-align: center;
+}
+.sillax{
+   width: 2px;
+   height: 50px;
+   
+    font-size: 10px;
+    
+    background: -webkit-linear-gradient(#F4C63f, #ee) repeat scroll 0 0 #111111;
+    background: -moz-linear-gradient(#F4C63f, #eee) repeat scroll 0 0 #111111;
+    text-align: center;
+}
+
+
+.sillax2{
+   width: 0px;
+   height: 2px;
+   
+    font-size: 10px;
+    
+    background: -webkit-linear-gradient(#F4C63f, #ee) repeat scroll 0 0 #111111;
+    background: -moz-linear-gradient(#F4C63f, #eee) repeat scroll 0 0 #111111;
+    text-align: center;
+}
+.mesa2{
+    height: 10px;
+   
+    
+    /*background: -webkit-linear-gradient(#fceda7, #eee) repeat scroll 0 0 #111111;
+    background: -moz-linear-gradient(#fceda7, #eee) repeat scroll 0 0 #111111;
+    */
+    background: brown;
+    
+}
+
+.mesa{
+    height: 40px;
+   
+    
+    /*background: -webkit-linear-gradient(#fceda7, #eee) repeat scroll 0 0 #111111;
+    background: -moz-linear-gradient(#fceda7, #eee) repeat scroll 0 0 #111111;
+    */
+    background: brown;
+    
+}
+
+.tablamesa2{
+    border:2px solid #000;
+    float: left;
+    margin: 1px;
+    
+}
+.tablamesa{
+    border:2px solid #000;
+    float: left;
+    margin: 5px;
+    
+}
+.mesaconsilla{
+    width: 65px;
+   height: 60px;
+   text-align: center;
+   background: url('../images/mesasillas.png') no-repeat;
+   padding-top: 20px;
+    
+    color: #fff;
+}
+.mesaconsilla2{
+    width: 65px;
+   height: 60px;
+   text-align: center;
+   background: url('../images/mesasillas2.png');
+     padding-top: 20px;
+    
+    color: #fff;
+}

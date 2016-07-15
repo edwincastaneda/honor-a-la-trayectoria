@@ -38,28 +38,26 @@ foreach ($mesas as $loop) {
 }
 $i = 0;
 foreach ($invitados as $loop) {
-    $no_mesa = $loop->no_mesa;
-    $no_silla = $loop->no_silla;
-    $codigo_barras = $loop->codigo_barras;
-    $nombres = $loop->nombres;
-    $apellidos = $loop->apellidos;
+    $no_mesa = $loop->mesa;
+    $no_silla = $loop->silla;
+    $codigo_barras = $loop->codigoBarras;
+    $nombres_apellidos = $loop->nombresApellidos;
     $anios = $loop->anios;
     $empresa = $loop->empresa;
     $departamento = $loop->departamento;
     $puesto = $loop->puesto;
-    $no_personas = $loop->no_personas;
+    $no_personas = $loop->numPersonas;
     ?>
         var objeto_<?php echo $i; ?> = {};
-        objeto_<?php echo $i; ?>["no_mesa"] = "<?php echo $no_mesa; ?>";
-        objeto_<?php echo $i; ?>["no_silla"] = "<?php echo $no_silla; ?>";
-        objeto_<?php echo $i; ?>["codigo_barras"] = "<?php echo $codigo_barras; ?>";
-        objeto_<?php echo $i; ?>["nombres"] = "<?php echo $nombres; ?>";
-        objeto_<?php echo $i; ?>["apellidos"] = "<?php echo $apellidos; ?>";
-        objeto_<?php echo $i; ?>["anios"] = "<?php echo $anios; ?>";
-        objeto_<?php echo $i; ?>["empresa"] = "<?php echo $empresa; ?>";
-        objeto_<?php echo $i; ?>["departamento"] = "<?php echo $departamento; ?>";
-        objeto_<?php echo $i; ?>["puesto"] = "<?php echo $puesto; ?>";
-        objeto_<?php echo $i; ?>["no_personas"] = "<?php echo $no_personas; ?>";
+        objeto_<?php echo $i; ?>["mesa"] = "<?php echo preg_replace( "/\r|\n/", "",$no_mesa); ?>";
+        objeto_<?php echo $i; ?>["silla"] = "<?php echo preg_replace( "/\r|\n/", "",$no_silla); ?>";
+        objeto_<?php echo $i; ?>["codigoBarras"] = "<?php echo preg_replace( "/\r|\n/", "",$codigo_barras); ?>";
+        objeto_<?php echo $i; ?>["nombresApellidos"] = "<?php echo preg_replace( "/\r|\n/", "",$nombres_apellidos); ?>";
+        objeto_<?php echo $i; ?>["anios"] = "<?php echo preg_replace( "/\r|\n/", "",$anios); ?>";
+        objeto_<?php echo $i; ?>["empresa"] = "<?php echo preg_replace( "/\r|\n/", "",$empresa); ?>";
+        objeto_<?php echo $i; ?>["departamento"] = "<?php echo preg_replace( "/\r|\n/", "",$departamento); ?>";
+        objeto_<?php echo $i; ?>["puesto"] = "<?php echo preg_replace( "/\r|\n/", "",$puesto); ?>";
+        objeto_<?php echo $i; ?>["noPersonas"] = "<?php echo preg_replace( "/\r|\n/", "",$no_personas); ?>";
         arrayInvitados.push(objeto_<?php echo $i; ?>);
     <?php
     $i++;
@@ -69,26 +67,24 @@ $i = 0;
 foreach ($invNA as $loop) {
     $no_mesa = "9999";
     $no_silla = "1";
-    $codigo_barras = $loop->codigo_barras;
-    $nombres = $loop->nombres;
-    $apellidos = $loop->apellidos;
+    $codigo_barras = $loop->codigoBarras;
+    $nombres_apellidos = $loop->nombresApellidos;
     $anios = $loop->anios;
     $empresa = $loop->empresa;
     $departamento = $loop->departamento;
     $puesto = $loop->puesto;
-    $no_personas = $loop->no_personas;
+    $no_personas = $loop->numPersonas;
     ?>
         var objeto_<?php echo $i; ?> = {};
-        objeto_<?php echo $i; ?>["no_mesa"] = "<?php echo $no_mesa; ?>";
-        objeto_<?php echo $i; ?>["no_silla"] = "<?php echo $no_silla; ?>";
-        objeto_<?php echo $i; ?>["codigo_barras"] = "<?php echo $codigo_barras; ?>";
-        objeto_<?php echo $i; ?>["nombres"] = "<?php echo $nombres; ?>";
-        objeto_<?php echo $i; ?>["apellidos"] = "<?php echo $apellidos; ?>";
-        objeto_<?php echo $i; ?>["anios"] = "<?php echo $anios; ?>";
-        objeto_<?php echo $i; ?>["empresa"] = "<?php echo $empresa; ?>";
-        objeto_<?php echo $i; ?>["departamento"] = "<?php echo $departamento; ?>";
-        objeto_<?php echo $i; ?>["puesto"] = "<?php echo $puesto; ?>";
-        objeto_<?php echo $i; ?>["no_personas"] = "<?php echo $no_personas; ?>";
+        objeto_<?php echo $i; ?>["mesa"] = "<?php echo preg_replace( "/\r|\n/", "",$no_mesa); ?>";
+        objeto_<?php echo $i; ?>["silla"] = "<?php echo preg_replace( "/\r|\n/", "",$no_silla); ?>";
+        objeto_<?php echo $i; ?>["codigoBarras"] = "<?php echo preg_replace( "/\r|\n/", "",$codigo_barras); ?>";
+        objeto_<?php echo $i; ?>["nombresApellidos"] = "<?php echo preg_replace( "/\r|\n/", "",$nombres_apellidos); ?>";
+        objeto_<?php echo $i; ?>["anios"] = "<?php echo preg_replace( "/\r|\n/", "",$anios); ?>";
+        objeto_<?php echo $i; ?>["empresa"] = "<?php echo preg_replace( "/\r|\n/", "",$empresa); ?>";
+        objeto_<?php echo $i; ?>["departamento"] = "<?php echo preg_replace( "/\r|\n/", "",$departamento); ?>";
+        objeto_<?php echo $i; ?>["puesto"] = "<?php echo preg_replace( "/\r|\n/", "",$puesto); ?>";
+        objeto_<?php echo $i; ?>["numPersonas"] = "<?php echo preg_replace( "/\r|\n/", "",$no_personas); ?>";
         arrayInvitados.push(objeto_<?php echo $i; ?>);
     <?php
     $i++;
@@ -100,7 +96,7 @@ foreach ($invNA as $loop) {
 <?php
 echo $move;
 ?>
-        $('.invitados').webuiPopover({trigger:'click',animation:'pop',type:'html',closeable:true,width:250,placement:'bottom'});
+        $('.invitados').webuiPopover({trigger: 'click', animation: 'pop', type: 'html', closeable: true, width: 250, placement: 'bottom'});
     });
 
 </script>
@@ -117,18 +113,17 @@ echo $move;
                     <h4 class="modal-title" id="descripcion_mesas_titulo"></h4>
                 </div>
                 <div class="modal-body" id="descripcion_mesas_contenido">
-                    <table id="tabla_sillas_mesa" data-url="" data-toggle="table" data-sort-name="no_silla" data-sort-order="asc">
+                    <table id="tabla_sillas_mesa" data-url="" data-toggle="table" data-sort-name="silla" data-sort-order="asc">
                         <thead>
                             <tr>
                                 <th data-halign="center" data-align="center" data-field="anios" >Años</th>
-                                <th data-field="codigo_barras" >Codigo Barras</th>
-                                <th data-field="nombres" >Nombres</th>
-                                <th data-field="apellidos" >Apellidos</th>
+                                <th data-field="codigoBarras" >Codigo Barras</th>
+                                <th data-field="nombresApellidos" >Nombres y Apellidos</th>
                                 <th data-field="departamento" >Departamento</th>
                                 <th data-field="empresa" >Empresa</th>
                                 <th data-field="puesto" >Puesto</th>
-                                <th data-halign="center" data-align="center" data-field="no_silla" data-sortable="true">Silla</th>
-                                <th data-halign="center" data-align="center" data-field="no_personas" >Personas</th>
+                                <th data-halign="center" data-align="center" data-field="silla" data-sortable="true">Silla</th>
+                                <th data-halign="center" data-align="center" data-field="personas" >Personas</th>
                             </tr>
                         </thead>
                     </table>
@@ -138,38 +133,122 @@ echo $move;
     </div>
 
 
+    <!-- Modal Asignacion Automatica-->
+    <div class="modal fade" id="asigna_automatico" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false" aria-labelledby="avisosModal">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <form id="asignar">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Mesas</h4>
+                </div>
+                <div class="modal-body">
+                        <div class="row">
+                            <strong>
+                            <div class="col-md-6">Seleccione la(s) mesa(s) a las que desea asignar:</div>
+                            <div class="col-md-6 text-right"><input type="checkbox" id="ckbCheckAllMesas" /> Seleccionar Todas</div>
+                            </strong>
+                            <br/><br/>
+                            <?php
+                            $url = URL . 'mesas/todas';
+                            $json = file_get_contents($url);
+                            $obj = json_decode($json);
 
-    <!-- Sidebar -->
-    <div id="sidebar-wrapper">
 
-        <form style="padding:10px">
-            <div class="form-group">
-                <label for="no_sillas">Numero de sillas*</label>
-                <input type="number" min="1" max="12" class="form-control" id="no_sillas"value="10" required="required">
+                            foreach ($obj as &$valor) {
+
+                                $form = '<div class="col-md-2">
+                                <div class="checkbox">
+                                    <label>
+                                      <input type="checkbox" class="checkMesas" name="mesa-'.$valor->no_mesa.'"> Mesa ' . $valor->no_mesa . '
+                                    </label>
+                                  </div>
+                                </div>';
+
+                                echo $form;
+                            }
+                            ?>
+
+                        </div>
+                </div>
+                <div class="modal-header">
+                    <h4 class="modal-title">Categorias</h4>
+                </div>
+                <div class="modal-body">
+                        <div class="row">
+                            <strong>
+                            <div class="col-md-6">Seleccione la(s) categoria(s) a seleccionar:</div>
+                            <input type="hidden" name="0" value="0">
+                            <div class="col-md-6 text-right"><input type="checkbox" id="ckbCheckAllCat" /> Seleccionar Todas</div>
+                            </strong>
+                            <br/><br/>
+                            <?php
+                            $url = URL . 'invitados/categorias';
+                            $json = file_get_contents($url);
+                            $obj = json_decode($json);
+
+
+                            foreach ($obj as &$valor) {
+
+                                $form = '<div class="col-md-2">
+                                <div class="checkbox">
+                                    <label>
+                                      <input type="checkbox" class="checkCat" name="cat-'.$valor->anios.'">' . $valor->anios . ' años
+                                    </label>
+                                  </div>
+                                </div>';
+
+                                echo $form;
+                            }
+                            ?>
+
+                        </div>
+
+                </div>
+                <div class = "modal-footer">
+                    <button  type = "submit" class = "btn btn-success" id="asignar_automaticamente"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Asignar Automáticamente</button>
+                </div>
+                </form>
             </div>
-            <div class="form-group">
-                <label for="no_mesa">Identificador de mesa*</label>
-                <input type="number" min="1" max="999" class="form-control" id="no_mesa" value="0" required="required">
+        </div>
+    </div>
+
+
+
+    <!--Sidebar -->
+    <div id = "sidebar-wrapper">
+
+        <form style = "padding:10px">
+            <div class = "form-group">
+                <label for = "no_sillas">Numero de sillas*</label>
+                <input type = "number" min = "1" max = "12" class = "form-control" id = "no_sillas"value = "10" required = "required">
             </div>
-            <div class="checkbox">
+            <div class = "form-group">
+                <label for = "no_mesa">Identificador de mesa*</label>
+                <input type = "number" min = "1" max = "999" class = "form-control" id = "no_mesa" value = "0" required = "required">
+            </div>
+            <div class = "checkbox">
                 <label>
-                    <input type="checkbox" id="media_luna"> Media Luna
+                    <input type = "checkbox" id = "media_luna"> Media Luna
                 </label>
             </div>
         </form>
-        <div class="col-lg-12">
-            <label for="contenedor_asignacion_manual">Mesa Generada</label>
-            <div id="generador_sillas"></div>
+        <div class = "col-lg-12">
+            <label for = "contenedor_asignacion_manual">Mesa Generada</label>
+            <div id = "generador_sillas"></div>
 
         </div>
-        <div class="col-lg-12">
+        <div class = "col-lg-12">
             <br/>
-            <label for="contenedor_asignacion_manual">Asignación Manual</label>
-
-            <div id="contenedor_asignacion_manual" class="silla">
+            <label for = "contenedor_asignacion_manual">Asignaciónes</label>
+            <button class = "btn btn-primary btn-block" id = "boton_asignacion_automatica">Automática</button>
+            <br/>
+            <label for = "contenedor_asignacion_manual">Manual</label>
+            <br/>
+            <div id = "contenedor_asignacion_manual" class = "silla">
                 <?php
                 foreach ($invNA as $loop) {
-                    echo setInvitado($loop->anios, $loop->codigo_barras, $loop->nombres, $loop->apellidos,$loop->empresa,$loop->departamento,$loop->puesto);
+                    echo setInvitado($loop->anios, $loop->codigoBarras, $loop->nombresApellidos, $loop->empresa, $loop->departamento, $loop->puesto);
                 }
                 ?>
             </div>
