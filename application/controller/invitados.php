@@ -13,7 +13,7 @@ class Invitados extends Controller {
     
     public function json() {
 
-        $invitados = $this->model->getInvitados("asistencia");
+        $resultset = $this->model->getInvitados();
        
         require APP . 'view/invitados/json.php';
     }
@@ -93,13 +93,10 @@ class Invitados extends Controller {
                                 case "entregadorPin":
                                      $arr[11]=$valor[$i];
                                     break;
-                                case "entregadorPuesto":
-                                     $arr[12]=$valor[$i];
-                                    break;
                             }
                             
                      } 
-                    $this->model->agregarInvitado($arr[0], $arr[1], $arr[2], $arr[3], $arr[4], $arr[5], $arr[6], $arr[7], $arr[8], $arr[9], $arr[10], $arr[11], $arr[12]);   
+                    $this->model->agregarInvitado($arr[0], $arr[1], $arr[2], $arr[3], $arr[4], $arr[5], $arr[6], $arr[7], $arr[8], $arr[9], $arr[10], $arr[11]);   
                     
                 }
             }
@@ -118,5 +115,20 @@ class Invitados extends Controller {
         $categorias = $this->model->getCategorias();
         require APP . 'view/invitados/categorias.php';
     }
+    
+    public function entregador($id) {
+        $resultset = $this->model->getEntregador($id);
+        require APP . 'view/invitados/json.php';
+    }
+    
+    public function entregadores() {
+        $resultset = $this->model->getEntregadores();
+        require APP . 'view/invitados/json.php';
+    }
+    
+    public function cambiarEntregador($codigo, $entrega) {
+       $this->model->setEntregador($codigo, $entrega);
+    }
+    
 
 }

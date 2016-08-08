@@ -20,7 +20,8 @@ function datosGrafica($anios) {
     $total = (int) $obj->registrados + (int) $obj->no_registrados;
     $pr = $obj->registrados / $total;
     $pnr = $obj->no_registrados / $total;
-
+    echo "var r" . $anios . "=" . $pr . ";";
+    echo "var nr" . $anios . "=" . $pnr . ";";
     echo "var pr" . $anios . "=" . number_format((float) $pr * 100, 2, '.', '') . ";";
     echo "var pnr" . $anios . "=" . number_format((float) $pnr * 100, 2, '.', '') . ";";
     }else{
@@ -32,14 +33,10 @@ function datosGrafica($anios) {
     
 }
 
-datosGrafica(5);
-datosGrafica(10);
-datosGrafica(15);
-datosGrafica(20);
-datosGrafica(25);
-datosGrafica(30);
-datosGrafica(35);
-datosGrafica(0);
+foreach ($categorias as $loop) {
+datosGrafica($loop->anios);
+}
+
 ?>
 
 </script>
@@ -48,135 +45,30 @@ datosGrafica(0);
         <div id="container-full-width">
                 <div class="col-md-12">
                     <div id="toolbar" style="margin-top:20px;">
-                        <h2 style="margin:0;">Graficas de Asistencia</h2>
+                        <h2 style="margin:0;">Gráficas de Asistencia</h2>
                     </div>
                     <br/>
                     <div class="col-md-12">
+                        <?php foreach($categorias as $loop){ ?>
                         <div class="col-md-4">
                             <div class="panel  panel-default">
                                 <div class="panel-heading">
-                                    <span class="glyphicon glyphicon-signal" aria-hidden="true"></span> 5AÑOS  
+                                    <span class="glyphicon glyphicon-signal" aria-hidden="true"></span> <?php echo $loop->titulo;?>  
                                     <div class="pull-right">
                                         <div class="btn-group">
 
                                         </div>
                                     </div>    
                                 </div>
-                                <div class="panel-body graph" id="5anos">
+                                <div class="panel-body graph" id="<?php echo $loop->anios;?>_category">
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-4">
-                            <div class="panel  panel-default">
-                                <div class="panel-heading">
-                                    <span class="glyphicon glyphicon-signal" aria-hidden="true"></span> 10 AÑOS  
-                                    <div class="pull-right">
-                                        <div class="btn-group">
-
-                                        </div>
-                                    </div>    
-                                </div>
-                                <div class="panel-body graph" id="10anos">
-                                </div>
-                            </div>
-
-                        </div>
-                        <div class="col-md-4">
-                            <div class="panel  panel-default">
-                                <div class="panel-heading">
-                                    <span class="glyphicon glyphicon-signal" aria-hidden="true"></span> 15 AÑOS 
-                                    <div class="pull-right">
-                                        <div class="btn-group">
-
-                                        </div>
-                                    </div>    
-                                </div>
-                                <div class="panel-body graph" id="15anos">
-                                </div>
-                            </div>
-
-                        </div>
+                        <?php } ?>
                     </div>
 
-                    <div class="col-md-12">
-                        <div class="col-md-4">
-                            <div class="panel  panel-default">
-                                <div class="panel-heading">
-                                    <span class="glyphicon glyphicon-signal" aria-hidden="true"></span> 20 AÑOS
-                                    <div class="pull-right">
-                                        <div class="btn-group">
-
-                                        </div>
-                                    </div>    
-                                </div>
-                                <div class="panel-body graph" id="20anos">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="panel  panel-default">
-                                <div class="panel-heading">
-                                    <span class="glyphicon glyphicon-signal" aria-hidden="true"></span> 25 AÑOS 
-                                    <div class="pull-right">
-                                        <div class="btn-group">
-
-                                        </div>
-                                    </div>    
-                                </div>
-                                <div class="panel-body graph" id="25anos">
-                                </div>
-                            </div>
-
-                        </div>
-                        <div class="col-md-4">
-                            <div class="panel  panel-default">
-                                <div class="panel-heading">
-                                    <span class="glyphicon glyphicon-signal" aria-hidden="true"></span> 30 AÑOS 
-                                    <div class="pull-right">
-                                        <div class="btn-group">
-
-                                        </div>
-                                    </div>    
-                                </div>
-                                <div class="panel-body graph" id="30anos">
-                                </div>
-                            </div>
-
-                        </div>
-                    </div> 
-                    
-                    <div class="col-md-12">
-                        <div class="col-md-6">
-                            <div class="panel  panel-default">
-                                <div class="panel-heading">
-                                    <span class="glyphicon glyphicon-signal" aria-hidden="true"></span> 35 AÑOS
-                                    <div class="pull-right">
-                                        <div class="btn-group">
-
-                                        </div>
-                                    </div>    
-                                </div>
-                                <div class="panel-body graph" id="35anos">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="panel  panel-default">
-                                <div class="panel-heading">
-                                    <span class="glyphicon glyphicon-signal" aria-hidden="true"></span> SIN CATEGORIA
-                                    <div class="pull-right">
-                                        <div class="btn-group">
-
-                                        </div>
-                                    </div>    
-                                </div>
-                                <div class="panel-body graph" id="0anos">
-                                </div>
-                            </div>
-
-                        </div>
-                    </div> 
-                    
+                 
+     
                     
                 </div>
         </div>

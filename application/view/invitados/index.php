@@ -4,19 +4,66 @@
     }
 </style>
 <script>
-    var host="<?php echo URL; ?>";
+
+    var host = "<?php echo URL; ?>";
 
     function nameFormatter(value, row) {
-        var icon = value == '1' ? 'glyphicon-ok text-success' : 'glyphicon-remove text-danger' 
+        var icon = value == '1' ? 'glyphicon-ok text-success' : 'glyphicon-remove text-danger'
         return '<i class="glyphicon ' + icon + '"></i> ';
     }
-    
-     window.onload = function () {
+
+    function entregaPin(value, row) {
+        var icon = value == '1' ? 'glyphicon-stop btn-success' : 'glyphicon-play btn-primary'
+        return '<i style="cursor:pointer;" id="' + row.codigoBarras + '" class="btn btn-xs glyphicon ' + icon + ' cambiarEstadoPin" name="' + value + '"></i>';
+    }
+
+    function entregadorPin(value, row) {
+        return '<button type="button" id="cambiarEntregador" class="btn btn-warning btn-xs" name="'+row.codigoBarras+'"><span class="glyphicon glyphicon glyphicon-pencil" aria-hidden="true"></span></button> <span id="entregador-'+row.codigoBarras+'">'+value;
+    }
+
+
+
+    window.onload = function () {
         $('.search input[type="text"]').focus();
     }
 </script>
+
+
+
+<div class="modal fade" id="modalCambiaEntregador" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Entrega Pin</h4>
+            </div>
+            <div class="modal-body">
+                <span><strong>Código de Barras:</strong></span> <span id="codigoBarrasModal"></span><br/><br/>
+                <select id="perfilEntregadorModal" class="form-control">
+                    <?php 
+                    $url = URL . "invitados/entregadores";
+                    $json = file_get_contents($url);
+                    $obj = json_decode($json);
+
+                    foreach ($obj as &$valor) {          
+                    echo "<option value=".$valor->idperfilEntregador.">".$valor->nombre."</option>";
+                      }
+                    ?>
+                </select>
+            </div>
+            <div class="modal-footer">
+                
+                <button type="button" class="btn btn-default" id="cambiarEntregadorModal">Seleccionar</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
 <div id="wrapper_nsidebar">
     <div class="row">
+
+
         <div id="container-full-width">
             <div class="col-md-12">
 
@@ -33,7 +80,7 @@
                 </div>
                 <!-- /D&D Zone -->
                 <div class="alert alert-success" style="display:none;" role="alert" id="uploader-succes">
-                    
+
                 </div>
                 <div id="toolbar">
                     <h2 style="margin:0;">Listado de Participantes</h2>
@@ -65,9 +112,8 @@
                                 <th data-halign="center" data-align="center" data-field="anios" data-sortable="true" data-visible="false">(#)Años</th>
                                 <th data-halign="center" data-align="center" data-field="numPersonas" data-sortable="true">(#)Personas</th>
                                 <th data-halign="center" data-align="center" data-field="confirmacion" data-sortable="true" data-visible="false">Confirmación</th>
-                                <th data-field="entregaPin" data-visible="false" data-sortable="true">Entrega Pin</th>
-                                <th data-field="entregadorPin" data-visible="false" data-sortable="true">Entregador Pin</th>
-                                <th data-field="entregadorPuesto" data-visible="false" data-sortable="true">Entregador Puesto</th>
+                                <th data-field="entregaPin" data-align="center" data-sortable="true" data-formatter="entregaPin">Entrega Pin</th>
+                                <th data-field="nombreEntregador" data-formatter="entregadorPin" data-sortable="true">Entregador Pin</th>
                                <!-- <th data-halign="center" data-align="center" data-field="action" data-formatter="actionFormatter" data-events="actionEvents">Acciones</th>-->
                             </tr>
                         </thead>

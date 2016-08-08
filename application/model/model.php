@@ -12,37 +12,52 @@ class Model {
 
     // INVITADOS
 
-    public function getInvitados($tabla) {
+    public function getInvitados() {
 
-        $sql = "SELECT * FROM ".$tabla;
+        $sql = "SELECT a.codigo, a.nombresApellidos, a.codigoBarras, a.empresa, a.departamento, a.puesto, a.asistencia, 
+                        a.fechaIngreso, a.anios, a.numPersonas, a.confirmacion, a.entregaPin, 
+                        a.entregadorPin, pe.idperfilEntregador, pe.nombre as nombreEntregador, 
+                        pe.puesto as puestoEntregador, pe.empresa as empresaEntregador FROM asistencia a
+                LEFT JOIN perfilentregador pe ON pe.idperfilEntregador=a.entregadorPin";
+        
         $query = $this->db->prepare($sql);
         $query->execute();
 
         return json_encode($query->fetchAll());
     }
 
-    public function agregarInvitado($nombresApellidos, $codigoBarras, $empresa, $departamento, $puesto, $asistencia, $fechaIngreso, $anios, $numPersonas, $confirmacion, $entregaPin, $entregadorPin, $entregadorPuesto) {
-        $sql = "INSERT INTO asistencia (nombresApellidos, codigoBarras, empresa, departamento, puesto, asistencia, fechaIngreso, anios, numPersonas, confirmacion, entregaPin, entregadorPin, entregadorPuesto) VALUES (:nombresApellidos, :codigoBarras, :empresa, :departamento, :puesto, :asistencia, :fechaIngreso, :anios, :numPersonas, :confirmacion, :entregaPin, :entregadorPin, :entregadorPuesto)";
+    public function agregarInvitado($nombresApellidos, $codigoBarras, $empresa, $departamento, $puesto, $asistencia, $fechaIngreso, $anios, $numPersonas, $confirmacion, $entregaPin, $entregadorPin) {
+        $sql = "INSERT INTO asistencia (nombresApellidos, codigoBarras, empresa, departamento, puesto, asistencia, fechaIngreso, anios, numPersonas, confirmacion, entregaPin, entregadorPin) VALUES (:nombresApellidos, :codigoBarras, :empresa, :departamento, :puesto, :asistencia, :fechaIngreso, :anios, :numPersonas, :confirmacion, :entregaPin, :entregadorPin)";
         $query = $this->db->prepare($sql);
-        $parameters = array(':nombresApellidos' => $nombresApellidos, ':codigoBarras' => $codigoBarras, ':empresa' => $empresa, ':departamento' => $departamento, ':puesto' => $puesto, ':asistencia' => $asistencia, ':fechaIngreso' => $fechaIngreso, ':anios' => $anios, ':numPersonas' => $numPersonas, ':confirmacion' => $confirmacion, ':entregaPin' => $entregaPin, ':entregadorPin' => $entregadorPin, ':entregadorPuesto' => $entregadorPuesto);
+        $parameters = array(':nombresApellidos' => $nombresApellidos, ':codigoBarras' => $codigoBarras, ':empresa' => $empresa, ':departamento' => $departamento, ':puesto' => $puesto, ':asistencia' => $asistencia, ':fechaIngreso' => $fechaIngreso, ':anios' => $anios, ':numPersonas' => $numPersonas, ':confirmacion' => $confirmacion, ':entregaPin' => $entregaPin, ':entregadorPin' => $entregadorPin);
         $query->execute($parameters);
     }
 
-    public function borrarInvitado($codigo) {
-        $sql = "DELETE FROM asistencia WHERE codigo = :codigo";
+    
+    public function getEntregador($id) {
+        $sql = "SELECT * FROM perfilEntregador WHERE idperfilEntregador = :idperfilEntregador";
         $query = $this->db->prepare($sql);
-        $parameters = array(':codigo' => $codigo);
+        $parameters = array(':idperfilEntregador' => $id);
 
         $query->execute($parameters);
+        return json_encode($query->fetch());
     }
-
-    public function updateInvitado($codigo, $codigoBarras, $nombresApellidos, $empresa, $departamento, $puesto, $asistencia, $fechaIngreso, $anios, $numPersonas, $confirmacion, $entregaPin, $entregadorPin, $entregadorPuesto) {
-        $sql = "UPDATE asistencia SET codigo = :codigo, codigoBarras = :codigoBarras, nombresApellidos = :nombresApellidos, empresa=:empresa, departamento=:departamento, puesto=:puesto, asistencia=:asistencia, fechaIngreso=:fechaIngreso, anios=:anios, numPersonas=:numPersonas, confirmacion=:confirmacion, entregaPin=:entregaPin, entregadorPin=:entregadorPin WHERE codigo = :codigo AND codigoBarras=:codigoBarras";
+    
+        public function getEntregadores() {
+        $sql = "SELECT * FROM perfilEntregador";
         $query = $this->db->prepare($sql);
-        $parameters = array(':codigo' => $codigo, ':codigoBarras' => $codigoBarras, ':nombresApellidos' => $nombresApellidos, ':empresa' => $empresa, ':departamento' => $departamento, ':puesto' => $puesto, ':asistencia' => $asistencia, ':fechaIngreso' => $fechaIngreso, ':anios' => $anios, ':numPersonas' => $numPersonas, ':confirmacion' => $confirmacion, ':entregaPin' => $entregaPin, ':entregadorPin' => $entregadorPin, ':entregadorPuesto' => $entregadorPuesto);
-
+        $query->execute();
+        return json_encode($query->fetchAll());
+    }
+    
+    
+        public function setEntregador($codigoBarras, $idEntregador){
+        $sql = "UPDATE asistencia SET entregadorPin = :entregadorPin WHERE codigoBarras=:codigoBarras";
+        $parameters = array(':codigoBarras' => $codigoBarras, ':entregadorPin' => $idEntregador);
+        $query = $this->db->prepare($sql);
         $query->execute($parameters);
     }
+    
 
     // UBICACIONES
 
@@ -191,6 +206,17 @@ class Model {
         return json_encode($query->fetchAll());
     }
    
+        public function getCategoriasData() {
+
+        $sql = "SELECT a.anios, o.titulo FROM asistencia a
+                LEFT JOIN opcionesCategorias o ON o.categoria=a.anios
+                GROUP BY a.anios";
+        $query = $this->db->prepare($sql);
+        $query->execute();
+
+        return $query->fetchAll();
+    }
+    
 
     public function getNumeroSillas($no_mesa) {
         $sql = "SELECT no_sillas FROM mesas WHERE no_mesa=" . $no_mesa;
@@ -220,6 +246,18 @@ class Model {
 
 // CHECKIN
 
+    public function getAsignacionPorCodigo($codigoBarras){
+                $sql = "SELECT am.mesa, am.silla, am.codigoBarras, i.nombresApellidos, i.empresa, i.departamento, i.puesto, i.anios, i.numPersonas, 1 as estado 
+                        FROM asignacionmesa am
+                        INNER JOIN asistencia i ON i.codigoBarras=am.codigoBarras
+                        WHERE am.codigoBarras='".$codigoBarras."'";
+
+        $query = $this->db->prepare($sql);
+        $query->execute();
+
+        return $query->fetch();
+    }
+    
     public function getInvitadosNoConfirmados($tabla) {
 
         $sql = "SELECT * FROM ".$tabla." WHERE asistencia=0";
@@ -255,6 +293,7 @@ class Model {
         public function getHomenajeados($anios, $entregadorPin){
         $sql = "SELECT * FROM asistencia
                 WHERE anios=".$anios."
+                AND asistencia=1 
                 AND entregadorPin=".$entregadorPin;
         
         $query = $this->db->prepare($sql);
@@ -268,7 +307,8 @@ class Model {
                 INNER JOIN perfilEntregador pe ON pe.idperfilEntregador=a.entregadorPin
                 WHERE a.anios=".$anio."
                 AND a.entregadorPin<>''
-                GROUP BY a.entregadorPin";
+                GROUP BY a.entregadorPin  
+                ORDER BY IF(CAST(grupo AS SIGNED) = 0, 99999, CAST(grupo AS SIGNED))";
         $query = $this->db->prepare($sql);
         $query->execute();
 
@@ -277,7 +317,7 @@ class Model {
     
         public function getCategoriasConColores() {
 
-        $sql = "SELECT a.anios, o.color, o.color2, o.texto FROM asistencia a
+        $sql = "SELECT a.anios, o.color, o.color2, o.texto, o.titulo, o.nombrePiedra FROM asistencia a
                 LEFT JOIN opcionesCategorias o ON o.categoria=a.anios
                 GROUP BY a.anios";
         
@@ -287,6 +327,69 @@ class Model {
         return $query->fetchAll();
     }
     
+    public function registrarPin($codigoBarras, $estado){
+        $sql = "UPDATE asistencia SET entregaPin = :entregaPin WHERE codigoBarras=:codigoBarras";
+        $query = $this->db->prepare($sql);
+        $parameters = array(':entregaPin' => (int)$estado, ':codigoBarras' => $codigoBarras);
+        $query->execute($parameters);
+    }
+    
+    
+    public function setAutoRefresh($estado){
+        $sql = "UPDATE opciones SET valor = ".$estado." WHERE nombre='refresh'";
+        $query = $this->db->prepare($sql);
+        $query->execute();
+    }
+ 
+    public function getAutoRefresh(){
+        $sql = "SELECT valor FROM opciones WHERE nombre='refresh'";
+        $query = $this->db->prepare($sql);
+        $query->execute();
 
+        return json_encode($query->fetch());
+    }
+    
+    
+    public function getHomenajeadosEmpresa($empresa){
+        $sql = "SELECT * FROM asistencia  WHERE empresa=:empresa ORDER BY nombresApellidos ASC";
+        $query = $this->db->prepare($sql);
+        $parameters = array(':empresa' => $empresa);
+        $query->execute($parameters);
+
+        return json_encode($query->fetchAll());
+    }
+    
+    
+    public function getHomenajeadosCategoria($categoria){
+        $sql = "SELECT * FROM asistencia  WHERE confirmacion=1 AND anios=:categoria AND empresa IN (:empresa) ORDER BY  nombresApellidos ASC";
+        $query = $this->db->prepare($sql);
+        $parameters = array(':empresa' => $empresa, ':categoria' => $categoria);
+        $query->execute($parameters);
+
+        return json_encode($query->fetchAll());
+    }
+    
+        public function getEmpresas(){
+        $sql = "SELECT * FROM asistencia WHERE asistencia = 1 GROUP BY empresa";
+        $query = $this->db->prepare($sql);
+        $query->execute();
+
+        return $query->fetchAll();
+    }
+    
+    
+    public function getCategoriaMayor() {
+
+        $sql = "SELECT MAX(anios) as mayor FROM asistencia";
+        $query = $this->db->prepare($sql);
+        $query->execute();
+
+        return $query->fetch();
+    }
+    
     
 }
+
+
+
+

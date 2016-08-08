@@ -1,8 +1,8 @@
-    $(window).load(function () {
-        $(".loading").fadeOut("slow");
-        $("#wrapper").fadeIn("slow");
-    });
-    
+$(window).load(function () {
+    $(".loading").fadeOut("slow");
+    $("#wrapper").fadeIn("slow");
+});
+
 (function () {
 
 
@@ -16,5 +16,22 @@
             $(this).html('<span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>');
         }
     });
+
+
+    $("#refrescar, #refrescar2").click(function () {
+        $.get("programa/refrescar/1",
+                function (data, status) {
+                    if (status == "success") {
+                        $('#alert_auto_guardado2').fadeIn('fast', function () {
+                            $(this).delay(1500).fadeOut(3000);
+                        });
+                    }
+                });
+    });
+
+
+
+
+
 
 })();

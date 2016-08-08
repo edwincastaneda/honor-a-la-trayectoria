@@ -40,8 +40,10 @@
     }
 
 
+    .loading{
+        display:none;
+    }
 </style>
-
 <div id="wrapper_nsidebar">
     <div class="row">
         <div id="container-full-width">
@@ -60,18 +62,18 @@
                                 
                                 <svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="100" height="90" style="float:left">
                                     <defs>
-                                      <filter id="colorMask">
+                                      <filter id="colorMask<?php echo $loop->anios; ?>">
                                         <feFlood flood-color="<?php if($loop->color!=""){echo $loop->color;}else{echo "#ffffff";}?>" result="flood" />
                                         <feComposite in="SourceGraphic" in2="flood" operator="arithmetic" k1="1" k2="0" k3="0" k4="0" />
                                       </filter>
                                     </defs>
-                                    <image width="100%" height="100%" xlink:href="<?php echo URL; ?>img/diamante.svg" filter="url(#colorMask)" />
+                                    <image width="100%" height="100%" xlink:href="<?php echo URL; ?>img/diamante.svg" filter="url(#colorMask<?php echo $loop->anios; ?>)" />
                                   </svg>
                                 
                                 
                                 <div class="texto-diamante">
-                                    <h1>Categoria <?php echo $loop->anios; ?> años</h1>
-                                    <h3>Piedra Rubi</h3>
+                                    <h1>Categoria <?php echo $loop->titulo; ?></h1>
+                                    <h3>Piedra <?php echo $loop->nombrePiedra; ?></h3>
                                     <h5><u>NOTA:</u> EXPLICAR LA LOGITICA DE ENTREGA DE PINES</h5>
                                 </div>
                             </li>
@@ -81,7 +83,7 @@
 
                                 <li class="list-group-item list-group-item" style="background: #222222; color:white; border-color:#222222;">
                                     <h3 style="color:white;">Grupo <?php echo $valor->grupo; ?></h3>
-                                    <h4><span class="label label-success">Entrega:</span> <?php echo $valor->nombre; ?> / <?php echo $valor->puesto; ?></h4>
+                                    <h4><span class="label label-success">Entrega:</span> &nbsp;<?php echo $valor->nombre; ?> / <?php echo $valor->puesto; ?></h4>
                                 </li>
 
                                 <?php
@@ -95,7 +97,7 @@
                                     <li class="list-group-item">
                                         <div class="checkbox">
                                             <label>
-                                                <input type="checkbox" id="<?php echo $valor2->codigoBarras; ?>"><span class="checkboxtext"><?php echo $valor2->nombresApellidos; ?></span>
+                                                <input class="chk" type="checkbox" id="<?php echo $valor2->codigoBarras; ?>" <?php if($valor2->entregaPin==1){echo "checked";}?>><span class="checkboxtext"><?php echo $valor2->nombresApellidos; ?></span>
                                             </label>
                                         </div>
                                     </li>

@@ -3,17 +3,24 @@
 class Checkin extends Controller {
 
     public function index() {
+        
+        if(isset($_GET['c'])){
+        $asignacionMesas=$this->model->getAsignacionPorCodigo($_GET['c']);
+        }
+        
         require APP . 'view/_templates/header.php';
         require APP . 'view/_templates/menu.php';
         require APP . 'view/checkin/index.php';
         require APP . 'view/_templates/libs.php';
         require APP . 'view/checkin/libs.php';
         require APP . 'view/_templates/footer.php';
+       
     }
 
     public function registrar($codigoBarras) {
             $this->model->registrarInvitado($codigoBarras);
-            header("Location: ".URL.'checkin');
+            $this->model->setAutoRefresh(1);
+            header("Location: ".URL.'checkin/?c='.$codigoBarras);
     }
     
     

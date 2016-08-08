@@ -53,9 +53,9 @@
                 var contenedor = evt.item.parentNode.id.split('-');
 
                 var item = evt.item,
-                    ctrl = evt.target;
-            
-            
+                        ctrl = evt.target;
+
+
                 if (Sortable.utils.is(ctrl, ".js-remove")) {
                     item.parentNode.removeChild(item);
 
@@ -68,8 +68,8 @@
                     });
                     autoGuardar();
                 }
-                
-                
+
+
             },
             onEnd: function (evt) {
 
@@ -192,8 +192,8 @@
 
     //MODAL SOBRE MESA
     $(document).on("click", ".contenedor_mesa", function () {
-        var id = $(this).attr('id').split('-');  
-         var data = new Object();
+        var id = $(this).attr('id').split('-');
+        var data = new Object();
         $("#tabla_sillas_mesa").bootstrapTable('removeAll');
         arrayInvitados.forEach(function (arr, index, object) {
             if (arr.mesa === id[0]) {
@@ -201,7 +201,7 @@
             }
         });
         $("#descripcion_mesas_modal").modal("show");
-        $("#descripcion_mesas_titulo").html("Mesa: "+id[0]);
+        $("#descripcion_mesas_titulo").html("Mesa: " + id[0]);
     });
 
 
@@ -209,42 +209,44 @@
     $(document).on("click", "#boton_asignacion_automatica", function () {
         $("#asigna_automatico").modal("show");
     });
-    
+
     //ASIGNAR AUTOMATICAMENTE
     $(document).on("click", "#asignar_automaticamente", function () {
         event.preventDefault();
-        
+
         var count1 = $('input[type=checkbox]:checked.checkMesas').length;
         var count2 = $('input[type=checkbox]:checked.checkCat').length;
-        
-        if(count1 > 0 && count2 > 0){ 
-        $.post("mesas/asignarAuto",
-                {
-                    params: $("#asignar").serialize()
-                },
-                function (data, status) {
-                    
-                    if (status == "success") {
-                        location.reload();
-                        //console.log(data,status);
-                    }
-                });
-        }else{
+
+
+        if (count1 > 0 && count2 > 0) {
+            $("#asignar_automaticamente").hide();
+            $.post("mesas/asignarAuto",
+                    {
+                        params: $("#asignar").serialize()
+                    },
+                    function (data, status) {
+
+                        if (status == "success") {
+                            location.reload();
+                            //console.log(data,status);
+                        }
+                    });
+        } else {
             alert("Debe Seleccionar al menos 1 mesa y 1 categoria");
         }
-                
-                
+
+
     });
-    
+
     $("#ckbCheckAllMesas").click(function () {
-         $(".checkMesas").prop('checked', $(this).prop('checked'));
+        $(".checkMesas").prop('checked', $(this).prop('checked'));
     });
-    
+
     $("#ckbCheckAllCat").click(function () {
-         $(".checkCat").prop('checked', $(this).prop('checked'));
+        $(".checkCat").prop('checked', $(this).prop('checked'));
     });
-    
-    
+
+
     $("#no_sillas, #no_mesa, #media_luna").bind('keyup mouseup click', function () {
         $("#generador_sillas").html(generarMesa($("#no_sillas").val(), $("#no_mesa").val(), esMediaLuna($('#media_luna'))));
         sorterSillas();
@@ -342,7 +344,7 @@
                 values.arrayInvitados[index] = item.mesa + "," + item.silla + "," + item.codigoBarras;
             }
         });
-        
+
         $.post("mesas/actualizar",
                 {
                     params: values

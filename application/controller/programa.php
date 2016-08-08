@@ -13,22 +13,27 @@ class Programa extends Controller {
         require APP . 'view/_templates/footer.php';
     }
 
-    public function registrar($codigoBarras) {
-            $this->model->registrarInvitado($codigoBarras);
-            header("Location: ".URL.'checkin');
+    public function registrar($codigoBarras, $estado) {
+        $this->model->registrarPin($codigoBarras, $estado);
     }
-    
-    
+
     public function homenajeados($anio, $entregadorPin) {
-        $resultset = $this->model->getHomenajeados($anio,$entregadorPin);
+        $resultset = $this->model->getHomenajeados($anio, $entregadorPin);
         require APP . 'view/programa/json.php';
     }
-    
-    
+
     public function grupos($anios) {
         $resultset = $this->model->getGruposPorAnio($anios);
         require APP . 'view/programa/json.php';
     }
 
+    public function autorefresh() {
+        $resultset = $this->model->getAutoRefresh();
+        require APP . 'view/programa/json.php';
+    }
+
+    public function refrescar($estado) {
+        $this->model->setAutoRefresh($estado);
+    }
 
 }

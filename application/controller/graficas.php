@@ -3,6 +3,7 @@
 class Graficas extends Controller {
 
     public function index() {
+        $categorias = $this->model->getCategoriasData();
         require APP . 'view/_templates/header.php';
         require APP . 'view/_templates/menu.php';
         require APP . 'view/graficas/index.php';
@@ -16,6 +17,8 @@ class Graficas extends Controller {
         $graficas = $this->model->getBarras($anios);
         require APP . 'view/graficas/json.php';
     }
+    
+
 
 
 }
