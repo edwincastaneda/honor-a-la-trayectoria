@@ -247,10 +247,10 @@ class Model {
 // CHECKIN
 
     public function getAsignacionPorCodigo($codigoBarras){
-                $sql = "SELECT am.mesa, am.silla, am.codigoBarras, i.nombresApellidos, i.empresa, i.departamento, i.puesto, i.anios, i.numPersonas, 1 as estado 
-                        FROM asignacionmesa am
-                        INNER JOIN asistencia i ON i.codigoBarras=am.codigoBarras
-                        WHERE am.codigoBarras='".$codigoBarras."'";
+                $sql = "SELECT  am.mesa, am.silla, i.codigoBarras, i.nombresApellidos, i.empresa, i.departamento, i.puesto, i.anios, i.numPersonas, 1 as estado 
+                        FROM asistencia i
+                        LEFT JOIN asignacionmesa am ON am.codigoBarras=i.codigoBarras
+                        WHERE i.codigoBarras='".$codigoBarras."'";
 
         $query = $this->db->prepare($sql);
         $query->execute();
@@ -331,6 +331,20 @@ class Model {
         $sql = "UPDATE asistencia SET entregaPin = :entregaPin WHERE codigoBarras=:codigoBarras";
         $query = $this->db->prepare($sql);
         $parameters = array(':entregaPin' => (int)$estado, ':codigoBarras' => $codigoBarras);
+        $query->execute($parameters);
+    }
+    
+    public function confirmarAsistencia($codigoBarras, $estado){
+        $sql = "UPDATE asistencia SET confirmacion = :confirmacion WHERE codigoBarras=:codigoBarras";
+        $query = $this->db->prepare($sql);
+        $parameters = array(':confirmacion' => (int)$estado, ':codigoBarras' => $codigoBarras);
+        $query->execute($parameters);
+    }
+    
+    public function registrarPersonas($codigoBarras, $personas){
+        $sql = "UPDATE asistencia SET numPersonas = :numPersonas WHERE codigoBarras=:codigoBarras";
+        $query = $this->db->prepare($sql);
+        $parameters = array(':numPersonas' => (int)$personas, ':codigoBarras' => $codigoBarras);
         $query->execute($parameters);
     }
     

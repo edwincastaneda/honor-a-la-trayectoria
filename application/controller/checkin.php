@@ -23,6 +23,9 @@ class Checkin extends Controller {
             header("Location: ".URL.'checkin/?c='.$codigoBarras);
     }
     
+    public function asistieron($codigoBarras, $personas) {
+        $this->model->registrarPersonas($codigoBarras, $personas);
+    }
     
     public function json() {
         $invitados = $this->model->getInvitadosNoConfirmados("asistencia");

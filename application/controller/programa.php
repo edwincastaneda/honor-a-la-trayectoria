@@ -17,6 +17,10 @@ class Programa extends Controller {
         $this->model->registrarPin($codigoBarras, $estado);
     }
 
+    public function confirmar($codigoBarras, $estado) {
+        $this->model->confirmarAsistencia($codigoBarras, $estado);
+    }
+    
     public function homenajeados($anio, $entregadorPin) {
         $resultset = $this->model->getHomenajeados($anio, $entregadorPin);
         require APP . 'view/programa/json.php';

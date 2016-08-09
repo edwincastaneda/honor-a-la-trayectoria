@@ -21,6 +21,10 @@
         return '<button type="button" id="cambiarEntregador" class="btn btn-warning btn-xs" name="'+row.codigoBarras+'"><span class="glyphicon glyphicon glyphicon-pencil" aria-hidden="true"></span></button> <span id="entregador-'+row.codigoBarras+'">'+value;
     }
 
+    function confirmacion(value, row) {
+        var icon = value == '1' ? 'glyphicon-ok btn-success' : 'glyphicon-remove btn-danger'
+        return '<i style="cursor:pointer;" id="' + row.codigoBarras + '" class="btn btn-xs glyphicon ' + icon + ' confirmar" name="' + value + '"></i>';
+    }
 
 
     window.onload = function () {
@@ -111,9 +115,9 @@
                                 <th data-halign="center" data-align="center" data-field="fechaIngreso" data-visible="false" data-sortable="true">Ingreso</th>
                                 <th data-halign="center" data-align="center" data-field="anios" data-sortable="true" data-visible="false">(#)Años</th>
                                 <th data-halign="center" data-align="center" data-field="numPersonas" data-sortable="true">(#)Personas</th>
-                                <th data-halign="center" data-align="center" data-field="confirmacion" data-sortable="true" data-visible="false">Confirmación</th>
-                                <th data-field="entregaPin" data-align="center" data-sortable="true" data-formatter="entregaPin">Entrega Pin</th>
-                                <th data-field="nombreEntregador" data-formatter="entregadorPin" data-sortable="true">Entregador Pin</th>
+                                <th data-halign="center" data-align="center" data-field="confirmacion" data-formatter="confirmacion" data-sortable="true">Confirmación</th>
+                                <th data-field="entregaPin" data-align="center" data-sortable="true" data-formatter="entregaPin">Entregado</th>
+                                <th data-field="nombreEntregador" data-formatter="entregadorPin" data-sortable="true">Entregador</th>
                                <!-- <th data-halign="center" data-align="center" data-field="action" data-formatter="actionFormatter" data-events="actionEvents">Acciones</th>-->
                             </tr>
                         </thead>

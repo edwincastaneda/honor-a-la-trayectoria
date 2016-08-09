@@ -68,8 +68,8 @@
         codigo = $("#codigoBarrasModal").html();
         entrega = $("#perfilEntregadorModal").val();
         entregaHtml = $("#perfilEntregadorModal option:selected").text();
-        
-        $("#entregador-"+codigo).html(entregaHtml);
+
+        $("#entregador-" + codigo).html(entregaHtml);
         $.post("invitados/cambiarEntregador/" + codigo + "/" + entrega,
                 function (data, status) {
                     if (status == "success") {
@@ -89,5 +89,33 @@
             $('.search input[type="text"]').focus();
         }
     });
+
+    $(document).on("click", ".confirmar", function () {
+
+        var codigo = $(this).attr('id');
+        var estado = 0;
+
+        if ($(this).attr('name') == 0) {
+            estado = 1;
+            $(this).attr('name', "1");
+            $(this).removeClass("btn btn-xs glyphicon glyphicon-remove btn-danger confirmar").addClass("btn btn-xs glyphicon glyphicon-ok btn-success confirmar");
+        } else {
+            estado = 0;
+            $(this).attr('name', "0");
+            $(this).removeClass("btn btn-xs  glyphicon glyphicon-ok btn-success confirmar").addClass("btn btn-xs glyphicon glyphicon-remove btn-danger confirmar");
+        }
+
+      $.post("programa/confirmar/" + codigo + "/" + estado,
+                function (data, status) {
+                    if (status == "success") {
+                        $.get("programa/refrescar/1");
+                        $('#alert_auto_guardado').fadeIn('fast', function () {
+                            $(this).delay(1500).fadeOut('fast');
+                        });
+                    }
+                });
+    });
+
+
 
 })();

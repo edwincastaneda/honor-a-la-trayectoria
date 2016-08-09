@@ -24,7 +24,7 @@
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span> Configuración <span class="caret"></span></a>
                     <ul class="dropdown-menu">
                         <li><a href="<?php echo URL; ?>invitados">Invitados</a></li>
-                        <li><a href="<?php echo URL; ?>entregador">Entregas</a></li>
+                        <!--<li><a href="<?php echo URL; ?>entregador">Entregas</a></li>-->
                         <li><a href="<?php echo URL; ?>mesas">Mesas</a></li>
                         <li><a href="<?php echo URL; ?>localidades">Localidades</a></li>
                         <li role="separator" class="divider"></li>

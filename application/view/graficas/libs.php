@@ -10,8 +10,8 @@ $(function () {
        $jvsp="Morris.Donut({
                 element: '".$anios."_category',
                 data: [
-                  {value: nr".$anios.", label: 'No Registrados', formatted: pnr".$anios."+'%' },
-                  {value: r".$anios.", label: 'Registrados', formatted: pr".$anios."+'%' }
+                  {value: nr".$anios.", label: 'No Registrados', formatted: pnr".$anios."+'% ('+nr".$anios."+')' },
+                  {value: r".$anios.", label: 'Registrados', formatted: pr".$anios."+'% ('+r".$anios."+')'  }
 
                 ],
                 colors: ['red', 'yellowgreen'],

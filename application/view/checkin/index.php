@@ -26,6 +26,11 @@
         var icon = value == '1' ? 'glyphicon-ok text-success' : 'glyphicon-remove text-danger'
         return '<i class="glyphicon ' + icon + '"></i> ';
     }
+    
+    function nameFormatter2(value, row) {
+        var icon = value == '1' ? 'glyphicon-ok text-success' : 'glyphicon-remove text-danger'
+        return '<i class="glyphicon ' + icon + '"></i> ';
+    }
 
     window.actionEvents = {
         'click .registrar': function (e, value, row, index) {
@@ -44,24 +49,31 @@
                     <div class="modal-dialog modal-">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h4 class="modal-title"><span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> REALIZADO!</h4>
+                                <h4 class="modal-title"><span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> REGISTRADO!</h4>
                             </div>
                             <div class="modal-body row" style="font-size:1.8em;">
                                 <div class="col-sm-12">
-                                <span class="glyphicon glyphicon-user text-primary" aria-hidden="true"></span> <?php if(isset($asignacionMesas->nombresApellidos)){echo $asignacionMesas->nombresApellidos;}?><br>
+                                <span class="glyphicon glyphicon-user text-primary" aria-hidden="true"></span>&nbsp; <?php if(isset($asignacionMesas->nombresApellidos)){echo $asignacionMesas->nombresApellidos;}?><br>
                                 </div>
                                 <div class="col-sm-12">
-                                <span class="glyphicon glyphicon-barcode text-primary" aria-hidden="true"></span> <?php if(isset($asignacionMesas->nombresApellidos)){echo $asignacionMesas->codigoBarras;}?>
+                                <span class="glyphicon glyphicon-barcode text-primary" aria-hidden="true"></span>&nbsp; <?php if(isset($asignacionMesas->codigoBarras)){echo $asignacionMesas->codigoBarras;}?>
                                 </div>
-                                <div class="col-sm-6">
-                                <span class="text-primary">Personas: </span> <?php if(isset($asignacionMesas->nombresApellidos)){echo $asignacionMesas->numPersonas;}?>
-                                </div>
-                                <div class="col-sm-6">
-                                <span class="text-primary">Mesa: </span> <?php if(isset($asignacionMesas->mesa)){echo $asignacionMesas->mesa;}?>
-                                </div>
+                                    <?php if(isset($asignacionMesas->numPersonas)){?>
+                                    <div class="col-sm-12">
+                                        <label for="no_personas">Personas: </label>
+                                        &nbsp;<input  style="width:60px;padding-left: 7px;" type="number" id="no_personas" value="<?php echo $asignacionMesas->numPersonas; ?>"/>
+                                        <input type="hidden" id="codigoBarras" value="<?php echo $asignacionMesas->codigoBarras;?>"/>
+                                    </div>
+                                    <?php }?>
+                                
+                                    <?php if(isset($asignacionMesas->mesa)){?>
+                                    <div class="col-sm-6">
+                                    <span class="text-primary">Mesa: </span> <?php echo $asignacionMesas->mesa; ?>
+                                    </div>
+                                    <?php }?>
                             </div>
                             <div class="modal-footer">
-                                <a href="<?php echo URL; ?>checkin" class="btn btn-success" id="finalizar">Finalizar</a>
+                                <a href="#" class="btn btn-primary finalizar">Confirmar Personas</a>
                             </div>
                         </div>
                     </div>
@@ -90,8 +102,9 @@
                                 <th data-field="nombresApellidos" data-sortable="true">Nombres</th>
                                 <th data-field="codigoBarras" data-sortable="true">Codigo Barras</th>
                                 <th data-field="empresa" data-sortable="true">Empresa</th>
-                                <th data-field="departamento" data-sortable="true">Departamento</th>
+                                <th data-field="departamento" data-sortable="true" data-visible="false">Departamento</th>
                                 <th data-field="puesto" data-sortable="true">Puesto</th>
+                                <th data-halign="center" data-align="center" data-field="confirmacion" data-sortable="true" data-formatter="nameFormatter2">Confirmación</th>
                                 <th data-halign="center" data-align="center"data-field="asistencia" data-sortable="true" data-visible="false" data-formatter="nameFormatter">Asistencia</th>
                                 <th data-halign="center" data-align="center" data-field="numPersonas" data-sortable="true">(#)Personas</th>
                                 <th data-halign="center" data-align="center" data-field="anios" data-sortable="true">(#)Años</th>

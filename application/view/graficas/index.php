@@ -14,14 +14,13 @@ function datosGrafica($anios) {
     $obj = json_decode($json);
     
     if($obj->registrados!="0" && $obj->no_registrados!="0"){
-    echo "var r" . $anios . "=" . $obj->registrados . ";";
-    echo "var nr" . $anios . "=" . $obj->no_registrados . ";";
+
 
     $total = (int) $obj->registrados + (int) $obj->no_registrados;
     $pr = $obj->registrados / $total;
     $pnr = $obj->no_registrados / $total;
-    echo "var r" . $anios . "=" . $pr . ";";
-    echo "var nr" . $anios . "=" . $pnr . ";";
+    echo "var r" . $anios . "=" . $obj->registrados . ";";
+    echo "var nr" . $anios . "=" . $obj->no_registrados. ";";
     echo "var pr" . $anios . "=" . number_format((float) $pr * 100, 2, '.', '') . ";";
     echo "var pnr" . $anios . "=" . number_format((float) $pnr * 100, 2, '.', '') . ";";
     }else{
@@ -62,6 +61,7 @@ datosGrafica($loop->anios);
                                 </div>
                                 <div class="panel-body graph" id="<?php echo $loop->anios;?>_category">
                                 </div>
+                                <div id="total_letras_<?php echo $loop->anios;?>"></div>
                             </div>
                         </div>
                         <?php } ?>
