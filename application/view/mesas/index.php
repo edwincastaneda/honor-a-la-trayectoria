@@ -49,15 +49,15 @@ foreach ($invitados as $loop) {
     $no_personas = $loop->numPersonas;
     ?>
         var objeto_<?php echo $i; ?> = {};
-        objeto_<?php echo $i; ?>["mesa"] = "<?php echo preg_replace( "/\r|\n/", "",$no_mesa); ?>";
-        objeto_<?php echo $i; ?>["silla"] = "<?php echo preg_replace( "/\r|\n/", "",$no_silla); ?>";
-        objeto_<?php echo $i; ?>["codigoBarras"] = "<?php echo preg_replace( "/\r|\n/", "",$codigo_barras); ?>";
-        objeto_<?php echo $i; ?>["nombresApellidos"] = "<?php echo preg_replace( "/\r|\n/", "",$nombres_apellidos); ?>";
-        objeto_<?php echo $i; ?>["anios"] = "<?php echo preg_replace( "/\r|\n/", "",$anios); ?>";
-        objeto_<?php echo $i; ?>["empresa"] = "<?php echo preg_replace( "/\r|\n/", "",$empresa); ?>";
-        objeto_<?php echo $i; ?>["departamento"] = "<?php echo preg_replace( "/\r|\n/", "",$departamento); ?>";
-        objeto_<?php echo $i; ?>["puesto"] = "<?php echo preg_replace( "/\r|\n/", "",$puesto); ?>";
-        objeto_<?php echo $i; ?>["noPersonas"] = "<?php echo preg_replace( "/\r|\n/", "",$no_personas); ?>";
+        objeto_<?php echo $i; ?>["mesa"] = "<?php echo preg_replace("/\r|\n/", "", $no_mesa); ?>";
+        objeto_<?php echo $i; ?>["silla"] = "<?php echo preg_replace("/\r|\n/", "", $no_silla); ?>";
+        objeto_<?php echo $i; ?>["codigoBarras"] = "<?php echo preg_replace("/\r|\n/", "", $codigo_barras); ?>";
+        objeto_<?php echo $i; ?>["nombresApellidos"] = "<?php echo preg_replace("/\r|\n/", "", $nombres_apellidos); ?>";
+        objeto_<?php echo $i; ?>["anios"] = "<?php echo preg_replace("/\r|\n/", "", $anios); ?>";
+        objeto_<?php echo $i; ?>["empresa"] = "<?php echo preg_replace("/\r|\n/", "", $empresa); ?>";
+        objeto_<?php echo $i; ?>["departamento"] = "<?php echo preg_replace("/\r|\n/", "", $departamento); ?>";
+        objeto_<?php echo $i; ?>["puesto"] = "<?php echo preg_replace("/\r|\n/", "", $puesto); ?>";
+        objeto_<?php echo $i; ?>["noPersonas"] = "<?php echo preg_replace("/\r|\n/", "", $no_personas); ?>";
         arrayInvitados.push(objeto_<?php echo $i; ?>);
     <?php
     $i++;
@@ -76,15 +76,15 @@ foreach ($invNA as $loop) {
     $no_personas = $loop->numPersonas;
     ?>
         var objeto_<?php echo $i; ?> = {};
-        objeto_<?php echo $i; ?>["mesa"] = "<?php echo preg_replace( "/\r|\n/", "",$no_mesa); ?>";
-        objeto_<?php echo $i; ?>["silla"] = "<?php echo preg_replace( "/\r|\n/", "",$no_silla); ?>";
-        objeto_<?php echo $i; ?>["codigoBarras"] = "<?php echo preg_replace( "/\r|\n/", "",$codigo_barras); ?>";
-        objeto_<?php echo $i; ?>["nombresApellidos"] = "<?php echo preg_replace( "/\r|\n/", "",$nombres_apellidos); ?>";
-        objeto_<?php echo $i; ?>["anios"] = "<?php echo preg_replace( "/\r|\n/", "",$anios); ?>";
-        objeto_<?php echo $i; ?>["empresa"] = "<?php echo preg_replace( "/\r|\n/", "",$empresa); ?>";
-        objeto_<?php echo $i; ?>["departamento"] = "<?php echo preg_replace( "/\r|\n/", "",$departamento); ?>";
-        objeto_<?php echo $i; ?>["puesto"] = "<?php echo preg_replace( "/\r|\n/", "",$puesto); ?>";
-        objeto_<?php echo $i; ?>["numPersonas"] = "<?php echo preg_replace( "/\r|\n/", "",$no_personas); ?>";
+        objeto_<?php echo $i; ?>["mesa"] = "<?php echo preg_replace("/\r|\n/", "", $no_mesa); ?>";
+        objeto_<?php echo $i; ?>["silla"] = "<?php echo preg_replace("/\r|\n/", "", $no_silla); ?>";
+        objeto_<?php echo $i; ?>["codigoBarras"] = "<?php echo preg_replace("/\r|\n/", "", $codigo_barras); ?>";
+        objeto_<?php echo $i; ?>["nombresApellidos"] = "<?php echo preg_replace("/\r|\n/", "", $nombres_apellidos); ?>";
+        objeto_<?php echo $i; ?>["anios"] = "<?php echo preg_replace("/\r|\n/", "", $anios); ?>";
+        objeto_<?php echo $i; ?>["empresa"] = "<?php echo preg_replace("/\r|\n/", "", $empresa); ?>";
+        objeto_<?php echo $i; ?>["departamento"] = "<?php echo preg_replace("/\r|\n/", "", $departamento); ?>";
+        objeto_<?php echo $i; ?>["puesto"] = "<?php echo preg_replace("/\r|\n/", "", $puesto); ?>";
+        objeto_<?php echo $i; ?>["numPersonas"] = "<?php echo preg_replace("/\r|\n/", "", $no_personas); ?>";
         arrayInvitados.push(objeto_<?php echo $i; ?>);
     <?php
     $i++;
@@ -138,15 +138,15 @@ echo $move;
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <form id="asignar">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title">Mesas</h4>
-                </div>
-                <div class="modal-body">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title">Mesas</h4>
+                    </div>
+                    <div class="modal-body">
                         <div class="row">
                             <strong>
-                            <div class="col-md-6">Seleccione la(s) mesa(s) a las que desea asignar:</div>
-                            <div class="col-md-6 text-right"><input type="checkbox" id="ckbCheckAllMesas" /> Seleccionar Todas</div>
+                                <div class="col-md-6">Seleccione la(s) mesa(s) a las que desea asignar:</div>
+                                <div class="col-md-6 text-right"><input type="checkbox" id="ckbCheckAllMesas" /> Seleccionar Todas</div>
                             </strong>
                             <br/><br/>
                             <?php
@@ -160,7 +160,7 @@ echo $move;
                                 $form = '<div class="col-md-2">
                                 <div class="checkbox">
                                     <label>
-                                      <input type="checkbox" class="checkMesas" name="mesa-'.$valor->no_mesa.'"> Mesa ' . $valor->no_mesa . '
+                                      <input type="checkbox" class="checkMesas" name="mesa-' . $valor->no_mesa . '"> Mesa ' . $valor->no_mesa . '
                                     </label>
                                   </div>
                                 </div>';
@@ -170,16 +170,16 @@ echo $move;
                             ?>
 
                         </div>
-                </div>
-                <div class="modal-header">
-                    <h4 class="modal-title">Categorias</h4>
-                </div>
-                <div class="modal-body">
+                    </div>
+                    <div class="modal-header">
+                        <h4 class="modal-title">Categorias</h4>
+                    </div>
+                    <div class="modal-body">
                         <div class="row">
                             <strong>
-                            <div class="col-md-6">Seleccione la(s) categoria(s) a seleccionar:</div>
-                            <input type="hidden" name="0" value="0">
-                            <div class="col-md-6 text-right"><input type="checkbox" id="ckbCheckAllCat" /> Seleccionar Todas</div>
+                                <div class="col-md-6">Seleccione la(s) categoria(s) a seleccionar:</div>
+                                <input type="hidden" name="0" value="0">
+                                <div class="col-md-6 text-right"><input type="checkbox" id="ckbCheckAllCat" /> Seleccionar Todas</div>
                             </strong>
                             <br/><br/>
                             <?php
@@ -193,7 +193,7 @@ echo $move;
                                 $form = '<div class="col-md-2">
                                 <div class="checkbox">
                                     <label>
-                                      <input type="checkbox" class="checkCat" name="cat-'.$valor->anios.'">' . $valor->anios . ' años
+                                      <input type="checkbox" class="checkCat" name="cat-' . $valor->anios . '">' . $valor->anios . ' años
                                     </label>
                                   </div>
                                 </div>';
@@ -204,10 +204,10 @@ echo $move;
 
                         </div>
 
-                </div>
-                <div class = "modal-footer">
-                    <button  type = "submit" class = "btn btn-success" id="asignar_automaticamente"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Asignar Automáticamente</button>
-                </div>
+                    </div>
+                    <div class = "modal-footer">
+                        <button  type = "submit" class = "btn btn-success" id="asignar_automaticamente"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Asignar Automáticamente</button>
+                    </div>
                 </form>
             </div>
         </div>
@@ -219,18 +219,42 @@ echo $move;
     <div id = "sidebar-wrapper">
 
         <form style = "padding:10px">
+
+            <div class="radio">
+                <label>
+                    <input type="radio" name="tipo_mesa" value="1" checked>
+                    Mesa Redonda
+                </label>
+            </div>
+            <div class="radio">
+                <label>
+                    <input type="radio" name="tipo_mesa" value="2">
+                    Mesa Media Luna
+                </label>
+            </div>
+            <div class="radio">
+                <label>
+                    <input type="radio" name="tipo_mesa" value="3">
+                    Mesa Cuadrada
+                </label>
+            </div>
+
+
             <div class = "form-group">
                 <label for = "no_sillas">Numero de sillas*</label>
                 <input type = "number" min = "1" max = "12" class = "form-control" id = "no_sillas"value = "10" required = "required">
             </div>
+            <div class = "form-group sillas_cuadradas" style="display:none;">
+                <label for = "no_sillas_vertical">(#)Sillas Verticales</label>
+                <input type = "number" min = "1" max = "12" class = "form-control" id = "no_sillas_vertical"  value = "5" required = "required">
+            </div>
+            <div class = "form-group sillas_cuadradas" style="display:none;">
+                <label for = "no_sillas_horizontal">(#)Sillas Horizontales</label>
+                <input type = "number" min = "1" max = "12" class = "form-control" id = "no_sillas_horizontal"value = "10" required = "required">
+            </div>
             <div class = "form-group">
                 <label for = "no_mesa">Identificador de mesa*</label>
                 <input type = "number" min = "1" max = "999" class = "form-control" id = "no_mesa" value = "0" required = "required">
-            </div>
-            <div class = "checkbox">
-                <label>
-                    <input type = "checkbox" id = "media_luna"> Media Luna
-                </label>
             </div>
         </form>
         <div class = "col-lg-12">

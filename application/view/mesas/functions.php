@@ -29,6 +29,7 @@ function getInvitado($no_mesa, $no_silla){
 
 function dibujaMesa($numMesa, $numSillas, $tipo) {
     $silla = 1;
+    if($tipo==1 || $tipo==2){
     $mesa = '<div id="' . $numMesa . '-' . $numSillas . '-' . $tipo . '" class="contenedor_mesa">
         <div class="js-remove">✖</div>
     <div class="mesa">' . $numMesa . '</div>';
@@ -101,5 +102,10 @@ function dibujaMesa($numMesa, $numSillas, $tipo) {
 
 
     return $mesa.='</div>';
+    }
+    
+    if($tipo==3){
+        return $mesa="d";
+    }
 }
 ?>

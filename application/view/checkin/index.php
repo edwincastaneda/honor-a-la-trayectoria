@@ -107,7 +107,7 @@
                                 <th data-halign="center" data-align="center" data-field="confirmacion" data-sortable="true" data-formatter="nameFormatter2">Confirmación</th>
                                 <th data-halign="center" data-align="center"data-field="asistencia" data-sortable="true" data-visible="false" data-formatter="nameFormatter">Asistencia</th>
                                 <th data-halign="center" data-align="center" data-field="numPersonas" data-sortable="true">(#)Personas</th>
-                                <th data-halign="center" data-align="center" data-field="anios" data-sortable="true">(#)Años</th>
+                                <th data-halign="center" data-align="center" data-field="anios" data-sortable="true">Categoria</th>
                                 <th data-halign="center" data-align="center" data-field="action" data-formatter="actionFormatter" data-events="actionEvents">Registrar</th>
                             </tr>
                         </thead>

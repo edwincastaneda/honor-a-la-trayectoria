@@ -275,3 +275,21 @@ a.invitados:hover{
 .uploader div.browser label:hover {
 	background-color: #427fed;
 }
+
+
+.mesa_cuadrada{
+    border-radius: 0px;
+}
+
+.cuadrada{
+    width: 150px;
+}
+
+.contenedor_l{
+    width: 20px;
+    height: calc(100% - 40px);
+}
+.contenedor_r{
+    width: 20px;
+    height: calc(100% - 40px);
+}

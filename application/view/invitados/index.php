@@ -35,15 +35,15 @@
 
 
 <div class="modal fade" id="modalCambiaEntregador" tabindex="-1" role="dialog">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-sm">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">Entrega Pin</h4>
+                <h4 class="modal-title">Seleccione Entregador</h4>
             </div>
             <div class="modal-body">
-                <span><strong>Código de Barras:</strong></span> <span id="codigoBarrasModal"></span><br/><br/>
-                <select id="perfilEntregadorModal" class="form-control">
+                <span><strong>Código de Barras:</strong></span> <span id="codigoBarrasModal"></span><br/>
+                <select style="margin-top:3px;" id="perfilEntregadorModal" class="form-control">
                     <?php 
                     $url = URL . "invitados/entregadores";
                     $json = file_get_contents($url);
@@ -57,7 +57,7 @@
             </div>
             <div class="modal-footer">
                 
-                <button type="button" class="btn btn-default" id="cambiarEntregadorModal">Seleccionar</button>
+                <button type="button" class="btn btn-primary" id="cambiarEntregadorModal">Asignar</button>
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
@@ -113,7 +113,7 @@
                                 <th data-field="puesto" data-sortable="true">Puesto</th>
                                 <th data-halign="center" data-align="center"data-field="asistencia" data-sortable="true" data-formatter="nameFormatter">Asistencia</th>
                                 <th data-halign="center" data-align="center" data-field="fechaIngreso" data-visible="false" data-sortable="true">Ingreso</th>
-                                <th data-halign="center" data-align="center" data-field="anios" data-sortable="true" data-visible="false">(#)Años</th>
+                                <th data-halign="center" data-align="center" data-field="anios" data-sortable="true" data-visible="false">Categoria</th>
                                 <th data-halign="center" data-align="center" data-field="numPersonas" data-sortable="true">(#)Personas</th>
                                 <th data-halign="center" data-align="center" data-field="confirmacion" data-formatter="confirmacion" data-sortable="true">Confirmación</th>
                                 <th data-field="entregaPin" data-align="center" data-sortable="true" data-formatter="entregaPin">Entregado</th>

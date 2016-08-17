@@ -63,7 +63,7 @@
                         if (arr.mesa === id[0] && arr.sillas === id[1] && arr.tipo === id[2]) {
                             object.splice(index, 1);
 
-                            $("#generador_sillas").html(generarMesa($("#no_sillas").val(), $("#no_mesa").val(), esMediaLuna($('#media_luna'))));
+                            $("#generador_sillas").html(generarMesa($("#no_sillas").val(), $("#no_mesa").val(), esMediaLuna($('[name=tipo_mesa]:checked')), $("#no_sillas_horizontal").val(), $("#no_sillas_vertical").val()));
                         }
                     });
                     autoGuardar();
@@ -84,7 +84,7 @@
                     }
                 });
 
-                $("#generador_sillas").html(generarMesa($("#no_sillas").val(), $("#no_mesa").val(), esMediaLuna($('#media_luna'))));
+                $("#generador_sillas").html(generarMesa($("#no_sillas").val(), $("#no_mesa").val(), esMediaLuna($('[name=tipo_mesa]:checked')), $("#no_sillas_horizontal").val(), $("#no_sillas_vertical").val()));
                 autoGuardar();
             }
         });
@@ -99,7 +99,7 @@
         onEnd: function (evt) {
             if (evt.item.parentNode.id != "generador_sillas") {
                 arrayMesas.push(creaObjMesa(evt));
-                $("#generador_sillas").html(generarMesa($("#no_sillas").val(), $("#no_mesa").val(), esMediaLuna($('#media_luna'))));
+                $("#generador_sillas").html(generarMesa($("#no_sillas").val(), $("#no_mesa").val(), esMediaLuna($('[name=tipo_mesa]:checked')), $("#no_sillas_horizontal").val(), $("#no_sillas_vertical").val()));
                 autoGuardar();
             }
 
@@ -107,9 +107,9 @@
     });
 
 
-    $("#generador_sillas").html(generarMesa($("#no_sillas").val(), $("#no_mesa").val(), 1));
+    $("#generador_sillas").html(generarMesa($("#no_sillas").val(), $("#no_mesa").val(), 1, 0, 0));
 
-    function generarMesa(no_sillas, no_mesa, tipo_mesa) {
+    function generarMesa(no_sillas, no_mesa, tipo_mesa, sillas_h, sillas_v) {
 
         var continuar = true;
         var mesa = "";
@@ -123,9 +123,19 @@
         if (continuar) {
 
             var silla = 1;
-            mesa += '<div id="' + no_mesa + '-' + no_sillas + '-' + tipo_mesa + '" class="contenedor_mesa">' +
-                    '<div class="js-remove">✖</div>' +
-                    '<div class="mesa">' + no_mesa + '</div>';
+
+
+            if (tipo_mesa <= 2) {
+                mesa += '<div id="' + no_mesa + '-' + no_sillas + '-' + tipo_mesa + '" class="contenedor_mesa">' +
+                        '<div class="js-remove">✖</div>' +
+                        '<div class="mesa">' + no_mesa + '</div>';
+            } else {
+                mesa += '<div id="' + no_mesa + '-' + no_sillas + '-' + tipo_mesa + '" class="contenedor_mesa cuadrada">' +
+                        '<div class="js-remove">✖</div>' +
+                        '<div class="contenedor_l">L</div>'+
+                        '<div class="mesa mesa_cuadrada">' + no_mesa + '</div>'+
+                        '<div class="contenedor_r">R</div>';
+            }
 
             if (tipo_mesa == "1") {
                 var value = 360 / no_sillas;
@@ -180,6 +190,9 @@
                     mesa += '<div  class="sillas_contenedor" style="transform:rotateZ(' + grados + 'deg);"><div class="silla" id="mesa-' + no_mesa + '-silla-' + silla + '"></div></div>';
                     silla++;
                 }
+            }
+            if (tipo_mesa == 3) {
+
             }
         } else {
 
@@ -247,8 +260,8 @@
     });
 
 
-    $("#no_sillas, #no_mesa, #media_luna").bind('keyup mouseup click', function () {
-        $("#generador_sillas").html(generarMesa($("#no_sillas").val(), $("#no_mesa").val(), esMediaLuna($('#media_luna'))));
+    $("#no_sillas, #no_mesa, [name=tipo_mesa]").bind('keyup mouseup click', function () {
+        $("#generador_sillas").html(generarMesa($("#no_sillas").val(), $("#no_mesa").val(), esMediaLuna($('[name=tipo_mesa]:checked')), $("#no_sillas_horizontal").val(), $("#no_sillas_vertical").val()));
         sorterSillas();
     });
 
@@ -256,11 +269,15 @@
     sorterSillas();
 
     function esMediaLuna(check) {
-        var tipo = 1;
-        if (check.is(":checked")) {
-            tipo = 2;
+        var opcion = check.val();
+
+        if (opcion == 3) {
+            $(".sillas_cuadradas").show();
+        } else {
+            $(".sillas_cuadradas").hide();
         }
-        return tipo;
+
+        return opcion;
     }
 
     function sorterSillas() {
@@ -357,5 +374,6 @@
                     }
                 });
     }
+
 
 })();
