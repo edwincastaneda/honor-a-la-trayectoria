@@ -109,7 +109,7 @@
                                 <th data-field="nombresApellidos" data-sortable="true">Nombres</th>
                                 <th data-field="codigoBarras" data-sortable="true">Codigo Barras</th>
                                 <th data-field="empresa" data-sortable="true">Empresa</th>
-                                <th data-field="departamento" data-sortable="true" data-visible="false">Departamento</th>
+                                <th data-field="departamento" data-sortable="true" data-visible="true">Departamento</th>
                                 <th data-field="puesto" data-sortable="true">Puesto</th>
                                 <th data-halign="center" data-align="center"data-field="asistencia" data-sortable="true" data-formatter="nameFormatter">Asistencia</th>
                                 <th data-halign="center" data-align="center" data-field="fechaIngreso" data-visible="false" data-sortable="true">Ingreso</th>

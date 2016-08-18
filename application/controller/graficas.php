@@ -4,6 +4,7 @@ class Graficas extends Controller {
 
     public function index() {
         $categorias = $this->model->getCategoriasData();
+        $todos = $this->model->getBarrasTodos();
         require APP . 'view/_templates/header.php';
         require APP . 'view/_templates/menu.php';
         require APP . 'view/graficas/index.php';

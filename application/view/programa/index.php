@@ -50,7 +50,7 @@
             <div class="col-md-12">
                 <?php
                 foreach ($categorias as $loop) {
-                    if ($loop->anios != 0) {
+                    if ($loop->anios != 0 && $loop->anios != 100) {
                         $url = URL . "programa/grupos/" . $loop->anios;
                         $json = file_get_contents($url);
                         $obj = json_decode($json);
@@ -67,14 +67,14 @@
                                         <feComposite in="SourceGraphic" in2="flood" operator="arithmetic" k1="1" k2="0" k3="0" k4="0" />
                                       </filter>
                                     </defs>
-                                    <image width="100%" height="100%" xlink:href="<?php echo URL; ?>img/diamante.svg" filter="url(#colorMask<?php echo $loop->anios; ?>)" />
+                                    <image width="100%" height="100%" xlink:href="<?php echo URL; ?>img/<?php echo $loop->imagen; ?>" filter="url(#colorMask<?php echo $loop->anios; ?>)" />
                                   </svg>
                                 
                                 
                                 <div class="texto-diamante">
-                                    <h1>Categoria <?php echo $loop->titulo; ?></h1>
-                                    <h3>Piedra <?php echo $loop->nombrePiedra; ?></h3>
-                                    <h5><u>NOTA:</u> EXPLICAR LA LOGITICA DE ENTREGA DE PINES</h5>
+                                    <h1><?php echo $loop->titulo; ?></h1>
+                                    <h3><?php echo $loop->nombrePiedra; ?></h3>
+                                    <h5><u>NOTA:</u> <?php echo $loop->texto_extra;?></h5>
                                 </div>
                             </li>
                             <?php

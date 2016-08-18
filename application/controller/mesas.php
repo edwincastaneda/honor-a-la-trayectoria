@@ -82,7 +82,7 @@ class Mesas extends Controller {
                 $sillas = $this->model->getNumeroSillas($valor);
                 $utilizadas = $this->model->getSillasUtilizadas($valor);  
 
-                for ($i = 1; $i <= $sillas->no_sillas; $i++) {
+                for ($i = 1; $i <= $sillas; $i++) {
                     if (!in_array($i, $utilizadas)) {
                         $cb=$this->model->getInvitadosSinAsignar($cat);
                         $this->model->asignarMesaInvitado($valor,$i,$cb->codigoBarras);

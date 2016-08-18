@@ -47,7 +47,23 @@ datosGrafica($loop->anios);
                         <h2 style="margin:0;">Gráficas de Asistencia</h2>
                     </div>
                     <br/>
-                    <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-sm-2 text-center"><h4>Registrados</h4><h2><?php echo $todos->registrados;?></h2></div>
+                    <div class="col-sm-2 text-center"><h4>No Registrados</h4><h2><?php echo $todos->no_registrados;?></h2></div>
+                    <div class="col-sm-2 text-center"><h4>Confirmados</h4><h2><?php echo $todos->confirmados;?></h2></div>
+                    <div class="col-sm-2 text-center"><h4>No Confirmados</h4><h2><?php echo $todos->no_confirmados;?></h2></div>
+                    <div class="col-sm-2 text-center"><h4>Confirmados Asistidos</h4><h2><?php echo $todos->confirmados_asistidos;?></h2></div>
+                    <div class="col-sm-2 text-center"><h4>Confirmados No Asistidos</h4><h2><?php echo $todos->confirmados_no_asistidos;?></h2></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-2 text-center"><h4>Homenajeados Confirmados</h4><h2><?php echo $todos->homenajeados_confirmados;?></h2></div>
+                        <div class="col-sm-2 text-center"><h4>Homenajeados Confirmados Asistidos</h4><h2><?php echo $todos->homenajeados_confirmados_asistidos;?></h2></div>
+                        <div class="col-sm-2 text-center"><h4>Homenajeados Confirmados Ausentes</h4><h2><?php echo $todos->homenajeados_confirmados_no_asistidos;?></h2></div>
+                        <div class="col-sm-2 text-center"><h4>Homenajeados No Confirmados Asistidos</h4><h2><?php echo $todos->homenajeados_no_confirmados_asistidos;?></h2></div>
+                        <div class="col-sm-2 text-center"><h4>Columnistas Asistidos</h4><h2><?php echo $todos->columnistas;?></h2></div>
+                        <div class="col-sm-2 text-center"><h4>VIP Asistidos</h4><h2><?php echo $todos->vip;?></h2></div>
+                    </div>
+                    <div class="col-md-12" style="margin-top:40px;">
                         <?php foreach($categorias as $loop){ ?>
                         <div class="col-md-4">
                             <div class="panel  panel-default">

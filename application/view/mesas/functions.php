@@ -2,7 +2,7 @@
     <?php foreach ($categorias as $loop) { 
     echo ".anos_".$loop->anios."{
             background: ".$loop->color.";
-            color:#fff;
+            color:".$loop->texto.";
             }
             ";
     

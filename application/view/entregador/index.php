@@ -8,9 +8,6 @@
                 <br/>
                 <div class="col-md-12">
 
-
-
-
                     <?php
                     foreach ($empresas as $loop) {
                         $url = URL . 'entregador/empresa/?nombre='.urlencode($loop->empresa);

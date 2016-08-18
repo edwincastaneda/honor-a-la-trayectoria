@@ -135,11 +135,15 @@
                 var count=1;
                 mesa +=         '<div class="js-remove">✖</div>';
 
-                document.getElementById("generador_sillas").style.height = "222px";
-                if (tipo_mesa==4 || tipo_mesa==3){
+                
+                if (tipo_mesa==4){
+                    document.getElementById("generador_sillas").style.height = "222px";
                     mesa += '<div id="' + no_mesa + '-' + st + '.' + sb + '.' + sr + '.' + sl + '-' + tipo_mesa + '" class="contenedor_mesa cuadrada_alta">';
                     mesa += '<div class="mesa mesa_cuadrada_alta">' + no_mesa + '</div>';
-                }else{
+                }
+                
+                if(tipo_mesa==3){
+                    document.getElementById("generador_sillas").style.height = "125px";
                     mesa += '<div id="' + no_mesa + '-' + st + '.' + sb + '.' + sr + '.' + sl + '-' + tipo_mesa + '" class="contenedor_mesa cuadrada">';
                     mesa += '<div class="mesa mesa_cuadrada">' + no_mesa + '</div>';
                 }
@@ -269,7 +273,8 @@
 
         var count1 = $('input[type=checkbox]:checked.checkMesas').length;
         var count2 = $('input[type=checkbox]:checked.checkCat').length;
-
+        
+        //console.log($("#asignar").serialize());
 
         if (count1 > 0 && count2 > 0) {
             $("#asignar_automaticamente").hide();
