@@ -235,10 +235,15 @@ echo $move;
             <div class="radio">
                 <label>
                     <input type="radio" name="tipo_mesa" value="3">
-                    Mesa Cuadrada
+                    Mesa Cuadrada Horizontal
                 </label>
             </div>
-
+            <div class="radio">
+                <label>
+                    <input type="radio" name="tipo_mesa" value="4">
+                    Mesa Cuadrada Vertical
+                </label>
+            </div>
 
             <div class = "form-group">
                 <label for = "no_sillas">Numero de sillas*</label>
@@ -246,11 +251,13 @@ echo $move;
             </div>
             <div class = "form-group sillas_cuadradas" style="display:none;">
                 <label for = "no_sillas_vertical">(#)Sillas Verticales</label>
-                <input type = "number" min = "1" max = "12" class = "form-control" id = "no_sillas_vertical"  value = "5" required = "required">
+                <input type = "number" min = "0" max = "10" class = "form-control" id = "no_sillas_vertical_l"  value = "1" required = "required">
+                <input type = "number" min = "0" max = "10" class = "form-control" id = "no_sillas_vertical_r"  value = "1" required = "required">
             </div>
             <div class = "form-group sillas_cuadradas" style="display:none;">
                 <label for = "no_sillas_horizontal">(#)Sillas Horizontales</label>
-                <input type = "number" min = "1" max = "12" class = "form-control" id = "no_sillas_horizontal"value = "10" required = "required">
+                <input type = "number" min = "0" max = "10" class = "form-control" id = "no_sillas_horizontal_t"value = "1" required = "required">
+                <input type = "number" min = "0" max = "10" class = "form-control" id = "no_sillas_horizontal_b"value = "1" required = "required">
             </div>
             <div class = "form-group">
                 <label for = "no_mesa">Identificador de mesa*</label>

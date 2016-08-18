@@ -63,7 +63,7 @@
                         if (arr.mesa === id[0] && arr.sillas === id[1] && arr.tipo === id[2]) {
                             object.splice(index, 1);
 
-                            $("#generador_sillas").html(generarMesa($("#no_sillas").val(), $("#no_mesa").val(), esMediaLuna($('[name=tipo_mesa]:checked')), $("#no_sillas_horizontal").val(), $("#no_sillas_vertical").val()));
+                            $("#generador_sillas").html(generarMesa($("#no_sillas").val(), $("#no_mesa").val(), esMediaLuna($('[name=tipo_mesa]:checked')), $("#no_sillas_horizontal_t").val(), $("#no_sillas_horizontal_b").val(), $("#no_sillas_vertical_r").val(), $("#no_sillas_vertical_l").val()));
                         }
                     });
                     autoGuardar();
@@ -84,7 +84,7 @@
                     }
                 });
 
-                $("#generador_sillas").html(generarMesa($("#no_sillas").val(), $("#no_mesa").val(), esMediaLuna($('[name=tipo_mesa]:checked')), $("#no_sillas_horizontal").val(), $("#no_sillas_vertical").val()));
+                $("#generador_sillas").html(generarMesa($("#no_sillas").val(), $("#no_mesa").val(), esMediaLuna($('[name=tipo_mesa]:checked')), $("#no_sillas_horizontal_t").val(), $("#no_sillas_horizontal_b").val(), $("#no_sillas_vertical_r").val(), $("#no_sillas_vertical_l").val()));
                 autoGuardar();
             }
         });
@@ -99,7 +99,7 @@
         onEnd: function (evt) {
             if (evt.item.parentNode.id != "generador_sillas") {
                 arrayMesas.push(creaObjMesa(evt));
-                $("#generador_sillas").html(generarMesa($("#no_sillas").val(), $("#no_mesa").val(), esMediaLuna($('[name=tipo_mesa]:checked')), $("#no_sillas_horizontal").val(), $("#no_sillas_vertical").val()));
+                $("#generador_sillas").html(generarMesa($("#no_sillas").val(), $("#no_mesa").val(), esMediaLuna($('[name=tipo_mesa]:checked')), $("#no_sillas_horizontal_t").val(), $("#no_sillas_horizontal_b").val(), $("#no_sillas_vertical_r").val(), $("#no_sillas_vertical_l").val()));
                 autoGuardar();
             }
 
@@ -107,9 +107,9 @@
     });
 
 
-    $("#generador_sillas").html(generarMesa($("#no_sillas").val(), $("#no_mesa").val(), 1, 0, 0));
+    $("#generador_sillas").html(generarMesa($("#no_sillas").val(), $("#no_mesa").val(), 1, 0, 0, 0, 0));
 
-    function generarMesa(no_sillas, no_mesa, tipo_mesa, sillas_h, sillas_v) {
+    function generarMesa(no_sillas, no_mesa, tipo_mesa, st, sb, sr, sl) {
 
         var continuar = true;
         var mesa = "";
@@ -129,12 +129,52 @@
                 mesa += '<div id="' + no_mesa + '-' + no_sillas + '-' + tipo_mesa + '" class="contenedor_mesa">' +
                         '<div class="js-remove">✖</div>' +
                         '<div class="mesa">' + no_mesa + '</div>';
+                document.getElementById("generador_sillas").style.height = "125px";
+                
             } else {
-                mesa += '<div id="' + no_mesa + '-' + no_sillas + '-' + tipo_mesa + '" class="contenedor_mesa cuadrada">' +
-                        '<div class="js-remove">✖</div>' +
-                        '<div class="contenedor_l">L</div>'+
-                        '<div class="mesa mesa_cuadrada">' + no_mesa + '</div>'+
-                        '<div class="contenedor_r">R</div>';
+                var count=1;
+                mesa +=         '<div class="js-remove">✖</div>';
+
+                document.getElementById("generador_sillas").style.height = "222px";
+                if (tipo_mesa==4 || tipo_mesa==3){
+                    mesa += '<div id="' + no_mesa + '-' + st + '.' + sb + '.' + sr + '.' + sl + '-' + tipo_mesa + '" class="contenedor_mesa cuadrada_alta">';
+                    mesa += '<div class="mesa mesa_cuadrada_alta">' + no_mesa + '</div>';
+                }else{
+                    mesa += '<div id="' + no_mesa + '-' + st + '.' + sb + '.' + sr + '.' + sl + '-' + tipo_mesa + '" class="contenedor_mesa cuadrada">';
+                    mesa += '<div class="mesa mesa_cuadrada">' + no_mesa + '</div>';
+                }
+                
+                
+                
+
+                mesa += '<div class="contenedor_t"><div>';
+                for (i = 1; i <= st; i++) {
+                    mesa += '<div class="silla" id="mesa-'+ no_mesa +'-silla-'+count+'"></div>';
+                    count++;
+                }
+                mesa += '</div></div>';
+                
+                mesa += '<div class="contenedor_r"><div>';
+                for (i = 1; i <= sr; i++) {
+                    mesa += '<div class="silla" id="mesa-'+ no_mesa +'-silla-'+count+'"></div>';
+                    count++;
+                }
+                mesa += '</div></div>';
+                
+                mesa += '<div class="contenedor_b"><div>';
+                for (i = 1; i <= sb; i++) {
+                    mesa += '<div class="silla" id="mesa-'+ no_mesa +'-silla-'+count+'"></div>';
+                    count++
+                }
+                mesa += '</div></div>';
+                
+                mesa += '<div class="contenedor_l"><div>';
+                for (i = 1; i <= sl; i++) {
+                    mesa += '<div class="silla" id="mesa-'+ no_mesa +'-silla-'+count+'"></div>';
+                    count++
+                }
+                mesa += '</div></div>';
+                
             }
 
             if (tipo_mesa == "1") {
@@ -260,8 +300,8 @@
     });
 
 
-    $("#no_sillas, #no_mesa, [name=tipo_mesa]").bind('keyup mouseup click', function () {
-        $("#generador_sillas").html(generarMesa($("#no_sillas").val(), $("#no_mesa").val(), esMediaLuna($('[name=tipo_mesa]:checked')), $("#no_sillas_horizontal").val(), $("#no_sillas_vertical").val()));
+    $("#no_sillas, #no_mesa, [name=tipo_mesa], #no_sillas_horizontal_t, #no_sillas_horizontal_b, #no_sillas_vertical_r, #no_sillas_vertical_l").bind('keyup mouseup click', function () {
+        $("#generador_sillas").html(generarMesa($("#no_sillas").val(), $("#no_mesa").val(), esMediaLuna($('[name=tipo_mesa]:checked')), $("#no_sillas_horizontal_t").val(), $("#no_sillas_horizontal_b").val(), $("#no_sillas_vertical_r").val(), $("#no_sillas_vertical_l").val()));
         sorterSillas();
     });
 
@@ -271,7 +311,7 @@
     function esMediaLuna(check) {
         var opcion = check.val();
 
-        if (opcion == 3) {
+        if (opcion == 3 || opcion == 4) {
             $(".sillas_cuadradas").show();
         } else {
             $(".sillas_cuadradas").hide();
@@ -289,7 +329,10 @@
                     var id = evt.item.id;
                     var contenedor = evt.item.parentNode.id.split('-');
                     var contenedor2 = evt.item.parentNode.parentNode.parentNode.parentNode.id.split('-');
-
+                    
+                    var getCuadrada = evt.item.parentNode.parentNode.parentNode.parentNode.className.split(' ');
+                    var getIdCuadrada = evt.item.parentNode.id.split('-');
+                    
                     if (contenedor != evt.from.id && contenedor2 != "generador_sillas") {
                         arrayInvitados.forEach(function (arr) {
                             if (arr.codigoBarras === id) {
@@ -298,8 +341,14 @@
                                     arr.mesa = "9999";
                                     arr.silla = "1";
                                 } else {
-                                    arr.mesa = contenedor[0];
-                                    arr.silla = contenedor[1];
+                                    if(getCuadrada[1]=="cuadrada" || getCuadrada[1]=="cuadrada_alta"){
+                                        arr.mesa = getIdCuadrada[1];
+                                        arr.silla = getIdCuadrada[3];
+                                    }else{
+                                        arr.mesa = contenedor[0];
+                                        arr.silla = contenedor[1];
+                                    }
+                                    
                                 }
                             }
                         });

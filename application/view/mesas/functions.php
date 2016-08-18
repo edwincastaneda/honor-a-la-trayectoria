@@ -29,8 +29,9 @@ function getInvitado($no_mesa, $no_silla){
 
 function dibujaMesa($numMesa, $numSillas, $tipo) {
     $silla = 1;
+    $mesa="";
     if($tipo==1 || $tipo==2){
-    $mesa = '<div id="' . $numMesa . '-' . $numSillas . '-' . $tipo . '" class="contenedor_mesa">
+    $mesa .= '<div id="' . $numMesa . '-' . $numSillas . '-' . $tipo . '" class="contenedor_mesa">
         <div class="js-remove">✖</div>
     <div class="mesa">' . $numMesa . '</div>';
 
@@ -104,8 +105,65 @@ function dibujaMesa($numMesa, $numSillas, $tipo) {
     return $mesa.='</div>';
     }
     
-    if($tipo==3){
-        return $mesa="d";
+    if($tipo==3 || $tipo==4){
+        $s = explode(".", $numSillas);
+        $count=1;
+        
+                //$mesa.='<div id="' . $numMesa . '-' . $numSillas . '-' . $tipo . '" class="contenedor_mesa cuadrada">' .
+                
+
+                //$mesa.='<div class="mesa mesa_cuadrada">' . $numMesa . '</div>';
+               
+                
+                if ($tipo==4){
+                    $mesa.='<div id="' . $numMesa . '-' . $numSillas . '-' . $tipo . '" class="contenedor_mesa cuadrada_alta">';
+                    $mesa.='<div class="mesa mesa_cuadrada_alta">' . $numMesa . '</div>';
+                }else{
+                    $mesa.='<div id="' . $numMesa . '-' . $numSillas . '-' . $tipo . '" class="contenedor_mesa cuadrada">';
+                    $mesa.='<div class="mesa mesa_cuadrada">' . $numMesa . '</div>';
+                }
+                
+                $mesa.='<div class="js-remove">✖</div>';
+
+                $mesa.='<div class="contenedor_t"><div>';
+                for ($i = 1; $i <= $s[0]; $i++) {
+                    $mesa.='<div class="silla" id="mesa-'. $numMesa .'-silla-'.$count.'">';
+                    $mesa.=getInvitado($numMesa,$count);
+                    $mesa.='</div>';
+                    $count++;
+                }
+                 $mesa.='</div></div>';
+                 
+                $mesa.='<div class="contenedor_r"><div>';
+                for ($i = 1; $i <= $s[2]; $i++) {
+                    $mesa.='<div class="silla" id="mesa-'. $numMesa .'-silla-'.$count.'">';
+                    $mesa.=getInvitado($numMesa,$count);
+                    $mesa.='</div>';
+                    $count++;
+                }
+                
+                $mesa.='</div></div>';
+                
+                $mesa.='<div class="contenedor_b"><div>';
+                for ($i = 1; $i <= $s[1]; $i++) {
+                    $mesa.='<div class="silla" id="mesa-'. $numMesa .'-silla-'.$count.'">';
+                    $mesa.=getInvitado($numMesa,$count);
+                    $mesa.='</div>';
+                    $count++;
+                }
+                $mesa.='</div></div>';
+                
+                $mesa.='<div class="contenedor_l"><div>';
+                for ($i = 1; $i <= $s[3]; $i++) {
+                    $mesa.='<div class="silla" id="mesa-'. $numMesa .'-silla-'.$count.'">';
+                    $mesa.=getInvitado($numMesa,$count);
+                    $mesa.='</div>';
+                    $count++;
+                }
+                $mesa.='</div></div>';
+                
+                return $mesa;
+                
     }
 }
 ?>

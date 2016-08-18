@@ -173,7 +173,7 @@ a.invitados:hover{
     cursor: pointer;
     color: #ef3a32;
     top: 0px;
-    right: -5px;
+    right: -20px;
     position: absolute;
     font-style: normal;
 }
@@ -278,18 +278,100 @@ a.invitados:hover{
 
 
 .mesa_cuadrada{
-    border-radius: 0px;
+    border-radius: 3px;
+}
+
+.mesa_cuadrada_alta{
+    border-radius: 3px;
+    height: 160px;
+    line-height: 160px;
 }
 
 .cuadrada{
-    width: 150px;
+    width: 200px;
 }
 
-.contenedor_l{
-    width: 20px;
-    height: calc(100% - 40px);
+.cuadrada_alta{
+    height: 200px;
 }
-.contenedor_r{
+
+.contenedor_l, .contenedor_r{
     width: 20px;
-    height: calc(100% - 40px);
+    /*height: calc(100% - 40px);*/
+    height: 100%;
+    position: absolute;
+    /*margin:20px 0px;*/
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.contenedor_r{
+    right:0;
+    margin-right: -4px;
+    
+}
+.contenedor_l{
+    left:0;
+    margin-left: -4px;
+}
+
+.contenedor_t, .contenedor_b{
+    /*width: calc(100% - 40px);*/
+    /*margin-left: 20px;*/
+    height: 20px;
+    position: absolute;
+    text-align: center;
+    width: 100%;
+}
+
+.contenedor_t{
+    top:0;
+    margin-top: -4px;
+}
+.contenedor_b{
+    bottom:0;
+    margin-bottom: -4px;
+}
+
+.contenedor_t .silla, .contenedor_b .silla{
+    display: inline-block;
+    border-radius: 30%;
+    z-index:2;
+    border: 1px solid grey;
+    width: 20px;
+    height: 20px;
+    margin:0px 2px;
+}
+
+.contenedor_l .silla, .contenedor_r .silla{
+     border-radius: 30%;
+    z-index:2;
+    border: 1px solid grey;
+    width: 20px;
+    height: 20px;
+    margin:2px 0px;
+}
+
+.contenedor_t .invitados, .contenedor_b .invitados, .contenedor_r .invitados, .contenedor_l .invitados {
+    margin-top: -1px !important;
+    margin-left: -1px;
+    margin-top: 0px;
+    cursor: -webkit-grabbing;
+    width: 20px;
+    height: 20px;
+    border-radius: 30%;
+    text-align: center;
+    line-height: 20px;
+    font-size: 11px;
+}
+
+.contenedor_t .sillas_contenedor, .contenedor_b .sillas_contenedor, .contenedor_r .sillas_contenedor, .contenedor_l .sillas_contenedor{
+    width: auto;
+    min-height: calc(100% - 20px);
+    position: relative;
 }
