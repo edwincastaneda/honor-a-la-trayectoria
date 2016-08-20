@@ -299,18 +299,18 @@ class Model {
 
     public function getBarrasTodos() {
         $sql = "SELECT 
-                (SELECT count(*) FROM asistencia WHERE asistencia=1) AS registrados,
-                (SELECT count(*) FROM asistencia WHERE asistencia=0) AS no_registrados,
-                (SELECT count(*) FROM asistencia WHERE confirmacion=0) AS no_confirmados,
-                (SELECT count(*) FROM asistencia WHERE confirmacion=1) AS confirmados,
-                (SELECT count(*) FROM asistencia WHERE confirmacion=1 AND asistencia=1) AS confirmados_asistidos,
-                (SELECT count(*) FROM asistencia WHERE confirmacion=1 AND asistencia=0) AS confirmados_no_asistidos,
-                (SELECT count(*) FROM asistencia WHERE confirmacion=1 AND anios >=5 AND  anios <=40) AS homenajeados_confirmados,
-                (SELECT count(*) FROM asistencia WHERE confirmacion=1 AND asistencia=1 AND anios >=5 AND  anios <=40) AS homenajeados_confirmados_asistidos,
-                (SELECT count(*) FROM asistencia WHERE confirmacion=1 AND asistencia=0 AND anios >=5 AND  anios <=40) AS homenajeados_confirmados_no_asistidos,
-                (SELECT count(*) FROM asistencia WHERE confirmacion=0 AND asistencia=1 AND anios >=5 AND  anios <=40) AS homenajeados_no_confirmados_asistidos,
-                (SELECT count(*) FROM asistencia WHERE asistencia=1 AND anios >=200) AS columnistas,
-                (SELECT count(*) FROM asistencia WHERE asistencia=1 AND anios =100) AS vip
+                (SELECT sum(numPersonas) FROM asistencia WHERE asistencia=1) AS registrados,
+                (SELECT sum(numPersonas) FROM asistencia WHERE asistencia=0) AS no_registrados,
+                (SELECT sum(numPersonas) FROM asistencia WHERE confirmacion=0) AS no_confirmados,
+                (SELECT sum(numPersonas) FROM asistencia WHERE confirmacion=1) AS confirmados,
+                (SELECT sum(numPersonas) FROM asistencia WHERE confirmacion=1 AND asistencia=1) AS confirmados_asistidos,
+                (SELECT sum(numPersonas) FROM asistencia WHERE confirmacion=1 AND asistencia=0) AS confirmados_no_asistidos,
+                (SELECT sum(numPersonas) FROM asistencia WHERE confirmacion=1 AND anios >=5 AND  anios <=40) AS homenajeados_confirmados,
+                (SELECT sum(numPersonas) FROM asistencia WHERE confirmacion=1 AND asistencia=1 AND anios >=5 AND  anios <=40) AS homenajeados_confirmados_asistidos,
+                (SELECT sum(numPersonas) FROM asistencia WHERE confirmacion=1 AND asistencia=0 AND anios >=5 AND  anios <=40) AS homenajeados_confirmados_no_asistidos,
+                (SELECT sum(numPersonas) FROM asistencia WHERE confirmacion=0 AND asistencia=1 AND anios >=5 AND  anios <=40) AS homenajeados_no_confirmados_asistidos,
+                (SELECT sum(numPersonas) FROM asistencia WHERE asistencia=1 AND anios >=200) AS columnistas,
+                (SELECT sum(numPersonas) FROM asistencia WHERE asistencia=1 AND anios =100) AS vip
                 ";
 
         $query = $this->db->prepare($sql);
@@ -336,7 +336,7 @@ class Model {
         $sql = "SELECT * FROM asistencia
                 WHERE anios=" . $anios . "
                 AND asistencia=1 
-                AND entregadorPin=" . $entregadorPin;
+                AND entregadorPin=" . $entregadorPin." order by nombresApellidos";
 
         $query = $this->db->prepare($sql);
         $query->execute();

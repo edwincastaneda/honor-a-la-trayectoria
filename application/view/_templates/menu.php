@@ -19,12 +19,12 @@
                 <li><a style="color:yellow;font-weight: bold;" href="<?php echo URL; ?>checkin"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Check-In</a></li>
                 <li><a style="color:yellowgreen;font-weight: bold;" href="<?php echo URL; ?>graficas"><span class="glyphicon glyphicon-signal" aria-hidden="true"></span> Gráficas</a></li>
                 <li><a style="color: magenta;font-weight: bold;" href="<?php echo URL; ?>programa" target="_blank"><span class="glyphicon glyphicon-phone" aria-hidden="true"></span> Programa</a></li>
+                <li><a style="color: tomato;font-weight: bold;" href="<?php echo URL; ?>ipads" target="_blank"><span class="glyphicon glyphicon-phone" aria-hidden="true"></span> iPads</a></li>
 
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span> Configuración <span class="caret"></span></a>
                     <ul class="dropdown-menu">
                         <li><a href="<?php echo URL; ?>invitados">Invitados</a></li>
-                        <li><a href="<?php echo URL; ?>entregador">Entregas</a></li>
                         <li><a href="<?php echo URL; ?>mesas">Mesas</a></li>
                         <li><a href="<?php echo URL; ?>localidades">Localidades</a></li>
                         <li role="separator" class="divider"></li>

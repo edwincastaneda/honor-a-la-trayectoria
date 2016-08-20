@@ -48,6 +48,11 @@
     <div class="row">
         <div id="container-full-width">
             <div class="col-md-12">
+                
+                <h1>PRIMERA ETAPA</h1>
+                <h2>Conductores: informan logística del programa Honor a la Trayectoria para reconocimientos de 5 a 15 años (entregarán estuche con pin respectivo en la mano al homenajeado)</h2>
+                <h2>Vamos a iniciar con la entrega de reconocimientos de “Honor a la Trayectoria” y primeramente llamaremos a los Directores del Consejo de Administración que estarán haciendo entrega de los reconocimientos respectivos y les pediremos de favor pasen al frente del escenario a la par del cubo que tiene los pines que hará entrega. Luego diremos el nombre del Director que hará entrega del pin a su grupo, y a los homenajeados se les estará llamando por su nombre, quienes deberán pasar al frente del escenario a recibir el pin por el Director en mención y tan pronto reciba su pin el homenajeado puede subir al escenario para esperar la foto de grupo de cada categoría acompañados de los Directores que entregaron su pin, luego de la fotografía respectiva pueden los homenajeados pasar a sus asientos y así sucesivamente.</h2>
+                <br/>
                 <?php
                 foreach ($categorias as $loop) {
                 if ($loop->anios != 0 && $loop->anios != 100) {
@@ -55,8 +60,22 @@
                 $json = file_get_contents($url);
                 $obj = json_decode($json);
 
-                if ($loop->anios == 200) {
+                if ($loop->anios ==20) {
                 ?>
+                
+                <hr>
+                <hr>
+                <CENTER STYLE="COLOR:RED;"><h1></h1></CENTER>
+                <hr>
+                <hr>
+                
+                
+                
+                <h1>SEGUNDA ETAPA</h1>
+                <h2>Conductores: informan logística del programa Honor a la Trayectoria para reconocimientos de 20 a 45 años (colocarán en la solapa del homenajeado)</h2>
+                <h2>Para la entrega de reconocimientos de “Honor a la Trayectoria” en esta segunda fase continuaremos con la logística, llamaremos a los Directores del Consejo de Administración que estarán haciendo entrega de los reconocimientos respectivos y les pediremos de favor pasen al frente del escenario a la par del cubo que tiene los pines que harán entrega. Luego diremos el nombre del Director que hará entrega del pin a su grupo, y a los homenajeados se les estará llamando por su nombre, quienes deberán pasar al frente del escenario a recibir el pin por el Director en mención y tan pronto reciba su pin el homenajeado puede subir al escenario para esperar la foto de grupo de cada categoría, acompañados de los Directores que entregaron su pin, luego de la fotografía respectiva pueden los homenajeados pasar a sus asientos y así sucesivamente.</h2>
+
+                <br/>
                 
                 <?php
                 }
@@ -93,7 +112,9 @@
                     ?>    
                     <br/><br/>
                     <h1>GUION</h1>
-                    <h2>Dr. Eduardo Palacios Lima</h2>
+                    <h2><em>Portada de Bronce</em></h2>
+                    <h2><b>Dr. Eduardo Palacios Lima</b></h2>
+                    
                     <h2>Empresario y profesor universitario. Posee un doctorado de California Christian University, es egresado de Haggai Institute for Leadership. Sus enseñanzas se publican semanalmente en la sección de negocios de Prensa Libre y las mísmas se han transmitido en Univisión, CVC y RCN Colombia.</h2>
                     <h2>Ha impartido sus conocimientos en empresas como: Coca Cola, Avon, Honda, Mc Donalds, Sabritas Frito Lay, Colgate, Western Union, Cementos Progresos, Banco Industrial, VisaNet, Banco Internacional, Abbott, Novartis, World Vision, Pollo Campero, BID, Embajadas de EUA y Cánada, Unilever, entre otras.</h2>
                     <h2>Autor del Best Seller “Cómo hacerla en la vida”, el cual ya va en su séptima edición y es utilizado actualmente como libro de texto en cinco universidades de Centroamérica.Miles de personas, en distintos países, han mejorado extraordinariamente sus finanzas personales al poner en práctica los principios de administración del dinero que el autor nos comparte en este fabuloso Libro</h2>
@@ -105,12 +126,38 @@
                     ?>    
                     <br/><br/>
                     <h1>GUION</h1>
-                    <h2>Ing. Manuel Francisco Salguero España</h2>
+                    <h2><em>Portada de Plata</em></h2>
+                    <h2><b>Ing. Manuel Francisco Salguero España</b></h2>
 
                         <h2>Empresario y conferencista. Graduado de Ingeniero Civil, de la Universidad de San Carlos de Guatemala, con postgrados tales como: Postgrado de Avalúos, postgrado de Administración de Empresas, entre otros.</h2>
                         <h2>Gerente General de Estrategias Valuatorias e Inversiones  Inmobiliarias EVINSA, 1999 a la fecha.    Gerente General de PLUSVALÍA, Revista especializada en los valores de la tierra.  Julio de 2006 a la fecha.   Presidente de la Asociación de Profesionales Valuadores APROVA.</h2>
                         <h2>Con una larga trayectoria como conferencista, organizandor de distintos eventos, congresos y seminarios, en Guatemala y varios paises del continente.</h2>
                         <h2>Ha escrito varios libros entre ellos: Curso de Capitalización de la Renta, guía de Consultas Inmobiliarias, guía de elaboración de Avalúos Inmobiliario, tratado de Valuación entre otros.</h2>
+                        <br/><br/>
+
+                    <?php } 
+                    
+                    if ($loop->anios == 400) {
+                    ?>    
+                    <br/><br/>
+                    <h1>GUION</h1>
+                    <h2><em>ESTATUILLA HONOR A LA TRAYECTORIA</em></h2>
+                    <h2><b>Licenciado Mario Antonio Sandoval Samayoa</b></h2>
+                        <h2>Llamamos al Escenario al Master Miguel Ángel Méndez Zetina, Director del Consejo de Administración para hacer entrega del reconocimiento al siguiente homenajeado quien inicio en Prensa Libre en el año 1965  como Reportero, luego fue Asistente del Subdirector, Asistente del Director, Jefe de Redacción, Sub-director y Director de Prensa Libre.</h2>
+                        <h2>Catedrático universitario por más de 22 años en las Escuelas de Ciencias de la comunicación  de las universidades Rafael Landívar, Francisco Marroquín y San Carlos de Guatemala. </h2>
+                        <h2>Su principal interés en el periodismo es la precisión y la calidad en la expresión idiomática. </h2>
+                        <h2>Pertenece a la Academia Guatemalteca de la Lengua, por eso expresa que su trabajo más  satisfactorio es la cátedra universitaria. </h2>
+                        <h2>Hizo estudios de prensa en Estados Unidos y Alemania. Graduado en Letra y Filosofía de la Universidad Rafael Landívar, con una tesis sobre Periodismo Escolar.</h2>
+                       <h2> Es Presidente del Consejo de Administración de Guatevisión y
+                        <h2>Vicepresidente del Consejo de Administración de Prensa Libre desde el 5 noviembre 2001 a la fecha.</h2>
+                        <h2>Hijo de Fundador Mario Sandoval Figueroa.</h2>
+
+                        <h2>Se ha hecho acreedor de la Estatuilla “Honor a la Trayectoria” por escribir Su columna “Catalejo”, en la cual analiza temas  Políticos y económicos con un estilo conciso, directo y breve; además, escribe la mayoría de editoriales del periódico. </h2>
+                        <h2>Pedimos de favor subir al escenario al Licenciado MARIO ANTONIO SANDOVAL  SAMAYOA</h2>
+
+                        <h2>A la vez pedimos de favor a los Directores del Consejo de Administración subir al escenario, María Mercedes de Blank, Karl Blank y María Inés Sandoval de Tabarini para tomarse una foto de recuerdo </h2>
+
+                        
                         <br/><br/>
 
                     <?php } ?>
@@ -186,9 +233,15 @@
                         ?>
 
 
+                        <br>
+                        <h1>PASTEL</h1>
+                        <h2>Conductores:  llaman al escenario a los Directores María Mercedes de Blank, Karl Blank, Mario Antonio Sandoval Samayoa y a María Inés Sandoval de Tabarini para apagar velas del pastel del 65 aniversario de Prensa Libre</h2>
+
+                        <h2>Conductores:  luego de apagar velas, llamar al escenario a Ing. Jorge Tabarini, Lic. Mario Alejandro Sandoval y a suj esposa, Lic. Christian Blank y a su esposa, Licda. Astrid Blank, Lic.Javier Sandoval y a su esposa, Sr. Andrés Tabarini Sandoval y a su esposa, Lic. Jaime Tabarini y a su esposa y tomar foto familiar</h2>
+
+                        <br>
                         </div>
                         </div>
 
-                        </div>
                         </div>
                         </div>
