@@ -53,7 +53,10 @@
                             </div>
                             <div class="modal-body row" style="font-size:1.8em;">
                                 <div class="col-sm-12">
-                                <span class="glyphicon glyphicon-user text-primary" aria-hidden="true"></span>&nbsp; <?php if(isset($asignacionMesas->nombresApellidos)){echo $asignacionMesas->nombresApellidos;}?><br>
+                                <span class="glyphicon glyphicon-user text-primary" aria-hidden="true"></span>&nbsp; <?php if(isset($asignacionMesas->nombresApellidos)){echo $asignacionMesas->nombresApellidos;}?>
+                                <?php 
+                                        if($asignacionMesas->anios>=5 && $asignacionMesas->numPersonas<=35){ echo '<br/><center><span style="color:#e9a326;">(<span class="glyphicon glyphicon-star" aria-hidden="true"></span>Homenajeado)</span></center>';}
+                                ?>
                                 </div>
                                 <div class="col-sm-12">
                                 <span class="glyphicon glyphicon-barcode text-primary" aria-hidden="true"></span>&nbsp; <?php if(isset($asignacionMesas->codigoBarras)){echo $asignacionMesas->codigoBarras;}?>

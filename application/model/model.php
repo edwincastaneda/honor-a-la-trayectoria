@@ -245,7 +245,7 @@ class Model {
 
         $sql = "SELECT codigoBarras, nombresApellidos FROM asistencia WHERE codigoBarras 
                 NOT IN (SELECT codigoBarras FROM asignacionmesa)
-                AND anios IN (" . $categorias . ") ORDER BY nombresApellidos ASC LIMIT 1 ";
+                AND anios IN (" . $categorias . ") AND confirmacion=1 ORDER BY nombresApellidos ASC LIMIT 1 ";
 
 
         $query = $this->db->prepare($sql);
@@ -288,8 +288,8 @@ class Model {
 
     public function getBarras($anios) {
         $sql = "SELECT 
-                (SELECT count(*) FROM asistencia WHERE anios=" . $anios . " AND asistencia=1) AS registrados,
-                (SELECT count(*) FROM asistencia WHERE anios=" . $anios . " AND asistencia=0) AS no_registrados";
+                (SELECT count(*) FROM asistencia WHERE anios=" . $anios . " AND asistencia=1 AND confirmacion=1) AS registrados,
+                (SELECT count(*) FROM asistencia WHERE anios=" . $anios . " AND asistencia=0 AND confirmacion=1) AS no_registrados";
 
         $query = $this->db->prepare($sql);
         $query->execute();
